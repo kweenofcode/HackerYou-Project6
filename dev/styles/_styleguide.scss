@@ -1,0 +1,15 @@
+//█████ COLOURS █████
+$primaryD: #00245B;
+$primaryL: #0058B2;
+$secondaryD: #FFC800;
+$secondaryL: #FFE99D;
+
+//█████ TYPOGRAPHY █████
+@mixin headingCopy { //@include headingCopy;
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+}
+@mixin bodyCopy { //@include bodyCopy;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 400;
+}
