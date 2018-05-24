@@ -17,14 +17,16 @@ class App extends React.Component {
 
     render() {
       return (
-        <div> 
-        <Router>
+        <div>
           <div>
-            <Route path="/recipe/:recipe_id" component={SingleRecipe} />
-            <Route exact path="/" component={LandingPage} />
-            <Route exact path="/recipes" component={Recipes} />
+            <Router>
+              <main className="wrapper">
+                <Route exact path="/" component={LandingPage} />
+                <Route path="/recipe/:recipe_id" component={SingleRecipe} />
+                <Route exact path="/recipes" component={Recipes} />
+              </main>
+            </Router>
           </div>
-        </Router>
         <div>
           {}
         <div className="wrapper">

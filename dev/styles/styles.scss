@@ -24,7 +24,7 @@ body {
         top: 50%;
         left: 50%;
         transform: translate(-50%,-50%);
-        p {
+        .desc {
             margin-bottom: 40px;
             &:after {
                 content: "";
@@ -36,6 +36,9 @@ body {
                 }
         }
         form {
+            div {
+                margin-bottom: 20px;
+            }
             input[type=submit] {
                 margin: 0 auto;
             }
