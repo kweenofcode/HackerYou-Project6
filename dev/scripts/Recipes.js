@@ -14,7 +14,7 @@ class Recipes extends React.Component {
     super();
     this.state = {
       recipes: [],
-      q: '',
+      q: 
       diet: {
         lacto: '388^Lacto vegetarian',
         ovo: '389^Ovo vegetarian',
