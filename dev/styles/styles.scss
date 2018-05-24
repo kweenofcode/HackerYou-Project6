@@ -2,7 +2,7 @@
 @import "styleguide";
 @import "typography";
 @import "formElements";
-
+/*██████████ GLOBAL ██████████*/
 body {
     background: $white;
     position: relative;
@@ -10,8 +10,8 @@ body {
 .wrapper {
     max-width: 960px;
     margin: 40px auto 40px auto;
-    border-top: solid 2px $primaryD;
-    border-bottom: solid 2px $primaryD;
+    border-top: $basicBorder;
+    border-bottom: $basicBorder;
 }
 .VQAlogo {
     margin: 0 auto;
@@ -22,8 +22,15 @@ body {
     top: -35px;
     left: calc(50% - 40px)
 }
+/*██████████ LAYOUT DETAILS ██████████*/
+.landingPage, .recipesRender, .wineRender {
+    padding: 20px 20px;
+}
+.recipesRender, .wineRender {
+    width: calc(50%);
+}
+/*██████████ LANDING PAGE ██████████*/
 .landingPage {
-    padding: 30px 20px;
     max-width: 600px;
     margin: 0 auto;
     height: calc(100vh - 85px);
@@ -42,7 +49,7 @@ body {
                 margin: 0 auto;
                 width: 60%;
                 padding-top: 30px;
-                border-bottom: 5px solid $primaryL;
+                border-bottom: $thiccBorder;
                 }
         }
         form {
@@ -58,4 +65,16 @@ body {
             }
         }
     }
+}
+/*██████████ WINE RENDER ██████████*/
+.wineRender {
+    float: left;
+    background: cyan;
+    border-right: 
+}
+/*██████████ RECIPES RENDER ██████████*/
+.recipesRender {
+    float: right;
+    padding: 30px 20px;
+    background: red;
 }
