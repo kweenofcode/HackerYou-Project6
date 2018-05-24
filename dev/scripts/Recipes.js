@@ -209,36 +209,39 @@ class Recipes extends React.Component {
   }
   render() {
     return (
-      <div>
+      <div className="clear">
+        <section className="wineRender">
+          <h2>[WINE TITLE]</h2>
+        </section>
+        <section className="recipesRender">
+          <h2>Recipes</h2>
+          {this.state.recipes.map((recipe, i) => {
+            if(recipe.rating >= 3) {
+            return(
+            <div key={recipe.id}>
+            <Link to={`recipe/${recipe.id}`}>
+            <img src={recipe.smallImageUrls} alt=""/>
+            </Link>
+            <h2>{recipe.recipeName}</h2>
+            <p>{recipe.rating}</p>
+            <ul>{recipe.ingredients.map((ingredient) =>{
+              return (
+                <li>{ingredient}</li>)
+              })}
+            </ul>
+            <p>{recipe.attributes.course}</p>
+            <p>{recipe.sourceDisplayName}</p>
+            <p>{recipe.id}</p>
+            </div>
+            )
+            }
+          })}
+          <p>{this.state.diet.Pescetarian}</p>
 
-        <h1>Recipes</h1>
-        {this.state.recipes.map((recipe, i) => {
-          if(recipe.rating >= 3) {
-          return(
-          <div key={recipe.id}>
-          <Link to={`recipe/${recipe.id}`}>
-          <img src={recipe.smallImageUrls} alt=""/>
-          </Link>
-          <h2>{recipe.recipeName}</h2>
-          <p>{recipe.rating}</p>
-          <ul>{recipe.ingredients.map((ingredient) =>{
-            return (
-            <li>{ingredient}</li>)
-          })
-        }
-          </ul>
-          <p>{recipe.attributes.course}</p>
-          <p>{recipe.sourceDisplayName}</p>
-          <p>{recipe.id}</p>
-          </div>
-          )
-          }
-        })}
-        <p>{this.state.diet.Pescetarian}</p>
 
 
 
-        <div className="wineMigrationTest">
+          <div className="wineMigrationTest">
           {this.state.wines.map((wine, index) => {
             return <Wine
               key={`${wine.key}${wine.origin}${wine.secondary_category}`}
@@ -254,7 +257,8 @@ class Recipes extends React.Component {
               testkey={wine.key}
             />
           })}
-        </div>
+          </div>
+        </section>
       </div>
     )
   }

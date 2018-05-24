@@ -33,27 +33,26 @@ input[type=checkbox] {
         background: $secondaryD;
       }
       &:focus + label:before {
-        box-shadow: 0 0 0 3px $secondaryL;
+        box-shadow: 0 0 0 3px #ffea9d80;
       }
       &:checked + label:before {
         background: $secondaryD;
       }
-      // Checkmark. Could be replaced with an image
-      &:checked + label:after {
+      &:checked + label:after { //this is the checkmark
         content: '';
         position: absolute;
         left: 5px;
         top: 9px;
-        background: white;
+        background: $white;
         width: 2px;
         height: 2px;
         box-shadow: 
-          2px 0 0 white,
-          4px 0 0 white,
-          4px -2px 0 white,
-          4px -4px 0 white,
-          4px -6px 0 white,
-          4px -8px 0 white;
+          2px 0 0 $white,
+          4px 0 0 $white,
+          4px -2px 0 $white,
+          4px -4px 0 $white,
+          4px -6px 0 $white,
+          4px -8px 0 $white;
         transform: rotate(45deg);
       }
     }

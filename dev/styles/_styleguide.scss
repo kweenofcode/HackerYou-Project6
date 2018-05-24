@@ -6,6 +6,10 @@ $secondaryL: #FFE99D;
 $white: #fffdf6;
 $black: #333;
 
+/*██████████ BORDERS ██████████*/
+$basicBorder: solid 2px $primaryD;
+$thiccBorder: 5px solid $primaryL;
+
 //██████████ TYPOGRAPHY ██████████
 @mixin headingCopy { //@include headingCopy;
     font-family: 'Playfair Display', serif;
