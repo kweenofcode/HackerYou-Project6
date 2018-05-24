@@ -176,17 +176,18 @@ class Recipes extends React.Component {
   render() {
     return (
       <div className="clear">
+
         <section className="wineRender">
-          <h2>{this.state.oneWine.name}</h2>
-          <h3>{this.state.oneWine.origin}</h3>
-          <h4>{this.state.oneWine.secondary_category}</h4>
-          <h5>Alcohol Content: {this.state.oneWine.alcohol_content}</h5>
-          <h5>{this.state.oneWine.style}</h5>
-          <h5>{this.state.oneWine.tasting_note}</h5>
-          <h5>{this.state.oneWine.varietal}</h5>
-          <img className="wineImage" src={this.state.oneWine.image_thumb_url}></img>
+          <h2>VQA Wine Spotlight</h2>
+          <img className="wineImage" src={this.state.oneWine.image_url}></img>
+          <h3>{this.state.oneWine.name}</h3>
+          <p className="wineOrigin">{this.state.oneWine.origin}</p>
+          <p className="wineDesc">{this.state.oneWine.tasting_note}</p>
+          <p className="wineTags">{this.state.oneWine.secondary_category} | Alcohol Content: {this.state.oneWine.alcohol_content}| {this.state.oneWine.style}</p>
         </section>
+
         <section className="recipesRender">
+          <h2>Top 3 Curated Dishes</h2>
           {this.state.recipes.map((recipe, i) => {
             if(recipe.rating >= 3) {
               return(
@@ -194,43 +195,19 @@ class Recipes extends React.Component {
                 <Link to={`recipe/${recipe.id}`}>
                   <img src={recipe.smallImageUrls} alt=""/>
                 </Link>
-                <h2>{recipe.recipeName}</h2>
-                <p>{recipe.rating}</p>
-                <ul>{recipe.ingredients.map((ingredient) =>{
+                <h3>{recipe.recipeName}</h3>
+                <p className="recipeAuthor">Recipe by: {recipe.sourceDisplayName}</p>
+                <p>Ingredients:</p>
+                <ul class="ingredientsList clear">{recipe.ingredients.map((ingredient) =>{
                   return (
-                    <li>{ingredient}</li>)
+                      <li>+ {ingredient}</li>
+                    )
                   })}
                 </ul>
-                <p>{recipe.attributes.course}</p>
-                <p>{recipe.sourceDisplayName}</p>
-                <p>{recipe.id}</p>
               </div>
               )
             }
           })}
-          <p>{this.state.diet.Pescetarian}</p>
-
-
-
-
-          <div className="wineMigrationTest">
-          {/*this.state.wines.map((wine, index) => {
-            return <Wine
-              key={`${wine.key}${wine.origin}${wine.secondary_category}`}
-              alcohol_content={wine.alcohol_content}
-              name={wine.name}
-              origin={wine.origin}
-              secondary_category={wine.secondary_category}
-              serving_suggestion={wine.serving_suggestion}
-              style={wine.style}
-              tasting_note={wine.tasting_note}
-              varietal={wine.varietal}
-              image_url={wine.image_url}
-              image_thumb_url={wine.image_thumb_url}
-              testkey={wine.key}
-            />
-          })*/}
-          </div>
         </section>
       </div>
     )
