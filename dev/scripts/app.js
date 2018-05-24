@@ -13,8 +13,6 @@ class App extends React.Component {
   constructor(){
     super();
   }
-
-
     render() {
       return (
         <div>
@@ -27,12 +25,7 @@ class App extends React.Component {
               </main>
             </Router>
           </div>
-        <div>
-          {}
-        <div className="wrapper">
         </div>
-      </div>
-      </div>
       )
     }
 }
