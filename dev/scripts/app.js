@@ -27,12 +27,7 @@ class App extends React.Component {
               </main>
             </Router>
           </div>
-        <div>
-          {}
-        <div className="wrapper">
         </div>
-      </div>
-      </div>
       )
     }
 }
