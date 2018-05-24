@@ -13,8 +13,13 @@ input[type=checkbox] {
     position: absolute;
     & + label {
         position: relative;
+        text-transform: capitalize;
         cursor: pointer;
         padding: 0;
+        width: 20%;
+        display: inline-block;
+        background: cyan; //TEMP
+        font-size: 13px;
       }
       & + label:before {
         content: '';
