@@ -108,9 +108,7 @@ class App extends React.Component {
             <Route path="/recipe/:recipe_id" component={SingleRecipe} />
             <Route exact path="/" component={LandingPage} />
             <Route exact path="/recipes" component={Recipes} />
-          </div>
         </Router>
-        <div>
           {this.state.wines.map((wine, index) => {
             return <Wine 
               key = {`${wine.key}${wine.origin}${wine.secondary_category}`}
