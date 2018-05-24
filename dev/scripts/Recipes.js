@@ -225,26 +225,25 @@ class Recipes extends React.Component {
           <img className="wineImage" url={this.state.oneWine.image_thumb_url}></img>
         </section>
         <section className="recipesRender">
-          <h2>Recipes</h2>
           {this.state.recipes.map((recipe, i) => {
             if(recipe.rating >= 3) {
-            return(
-            <div key={recipe.id}>
-            <Link to={`recipe/${recipe.id}`}>
-            <img src={recipe.smallImageUrls} alt=""/>
-            </Link>
-            <h2>{recipe.recipeName}</h2>
-            <p>{recipe.rating}</p>
-            <ul>{recipe.ingredients.map((ingredient) =>{
-              return (
-                <li>{ingredient}</li>)
-              })}
-            </ul>
-            <p>{recipe.attributes.course}</p>
-            <p>{recipe.sourceDisplayName}</p>
-            <p>{recipe.id}</p>
-            </div>
-            )
+              return(
+              <div className="recipe" key={recipe.id}>
+                <Link to={`recipe/${recipe.id}`}>
+                  <img src={recipe.smallImageUrls} alt=""/>
+                </Link>
+                <h2>{recipe.recipeName}</h2>
+                <p>{recipe.rating}</p>
+                <ul>{recipe.ingredients.map((ingredient) =>{
+                  return (
+                    <li>{ingredient}</li>)
+                  })}
+                </ul>
+                <p>{recipe.attributes.course}</p>
+                <p>{recipe.sourceDisplayName}</p>
+                <p>{recipe.id}</p>
+              </div>
+              )
             }
           })}
           <p>{this.state.diet.Pescetarian}</p>
