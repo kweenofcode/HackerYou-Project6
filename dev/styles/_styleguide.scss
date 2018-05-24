@@ -1,10 +1,12 @@
-//█████ COLOURS █████
+//██████████ COLOURS ██████████
 $primaryD: #00245B;
 $primaryL: #0058B2;
 $secondaryD: #FFC800;
 $secondaryL: #FFE99D;
+$white: #fffdf6;
+$black: #333;
 
-//█████ TYPOGRAPHY █████
+//██████████ TYPOGRAPHY ██████████
 @mixin headingCopy { //@include headingCopy;
     font-family: 'Playfair Display', serif;
     font-weight: 700;
