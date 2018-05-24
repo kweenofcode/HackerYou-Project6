@@ -103,6 +103,7 @@ class App extends React.Component {
 
     render() {
       return (
+        <div> 
         <Router>
           <div>
             <Route path="/recipe/:recipe_id" component={SingleRecipe} />
@@ -125,8 +126,8 @@ class App extends React.Component {
             />
           })}
         <div className="wrapper">
-          <LandingPage/>
         </div>
+      </div>
       </div>
       )
     }
