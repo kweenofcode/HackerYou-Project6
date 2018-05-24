@@ -103,13 +103,16 @@ class App extends React.Component {
 
     render() {
       return (
-        <div> 
-        <Router>
+        <div>
           <div>
-            <Route path="/recipe/:recipe_id" component={SingleRecipe} />
-            <Route exact path="/" component={LandingPage} />
-            <Route exact path="/recipes" component={Recipes} />
-        </Router>
+            <Router>
+              <main className="wrapper">
+                <Route exact path="/" component={LandingPage} />
+                <Route path="/recipe/:recipe_id" component={SingleRecipe} />
+                <Route exact path="/recipes" component={Recipes} />
+              </main>
+            </Router>
+          </div>
           {this.state.wines.map((wine, index) => {
             return <Wine 
               key = {`${wine.key}${wine.origin}${wine.secondary_category}`}
@@ -125,9 +128,6 @@ class App extends React.Component {
               testkey = {wine.key}
             />
           })}
-        <div className="wrapper">
-        </div>
-      </div>
       </div>
       )
     }
