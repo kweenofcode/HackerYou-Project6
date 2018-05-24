@@ -18,6 +18,7 @@ class App extends React.Component {
     super();
     this.state = {
       wines: [{
+        alcohol_content: 0  ,
         origin: '',
         tasting_note: '',
         serving_suggestion: '',
@@ -62,6 +63,7 @@ class App extends React.Component {
       for(let i=0;i<data.length;i++)
       {
         const curated_dataset = {
+          alcohol_content: (data[i].alcohol_content / 100).toString() + "%",
           origin: data[i].origin,
           secondary_category: data[i].secondary_category,
           serving_suggestion: data[i].serving_suggestion,
@@ -98,6 +100,7 @@ class App extends React.Component {
           {this.state.wines.map((wine, index) => {
             return <Wine 
               key = {`${wine.key}${wine.origin}${wine.secondary_category}`}
+              alcohol_content = {wine.alcohol_content}
               origin = {wine.origin}
               secondary_category = {wine.secondary_category}
               serving_suggestion = {wine.serving_suggestion}
@@ -112,6 +115,7 @@ class App extends React.Component {
         <div className="wrapper">
           <LandingPage/>
         </div>
+      </div>
       )
     }
 }
