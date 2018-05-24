@@ -101,13 +101,6 @@ class Recipes extends React.Component {
 
 
       await axios({
-        url: 'https://api.yummly.com/v1/api/recipes',
-        params: {
-          requirepictures: true,
-          'allowedCourse': 'course^course-Main Dishes',
-          'allowedDiet[]': `${this.state.diet.paleo}`,
-          q: 'fish',
-          'allowedAllergy[]': `${this.state.allergies.gluten}`,
         method: "GET",
         url: "http://proxy.hackeryou.com",
         dataResponse: "json",
@@ -121,7 +114,6 @@ class Recipes extends React.Component {
             text: singleWine.serving_suggestion,
           },
           xmlToJSON: false
-        }
       }  
         //Promise to return package unit type (can/bottle), total pacakge units (6/package), image_url, price, and producer name
       }).then(async res => {
