@@ -71,7 +71,7 @@ class Recipes extends React.Component {
       }
 
       //Promise to return package unit type (can/bottle), total pacakge units (6/package), image_url, price, and producer name
-    }).then(res => {
+    }).then(async res => {
       console.log(res);
       let curatingArray = [];
       // console.log(res.data.result[0].origin)
@@ -97,7 +97,7 @@ class Recipes extends React.Component {
       console.log(singleWine.serving_suggestion);
       
       //embedded axios call
-      axios({
+      await axios({
         url: 'https://api.yummly.com/v1/api/recipes',
         params: {
           requirepictures: true,
