@@ -4,6 +4,6 @@
 *.rar
 *.txt
 *.psd
-node_modules/
+node_modules
 public/**/*
 package-lock.json
