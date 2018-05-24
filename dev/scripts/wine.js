@@ -3,7 +3,7 @@ import React from 'react';
 const Wine = (props) => {
     return (
         <div>
-            {props.testKey}
+            {props.name}
         </div>
     )
 
