@@ -47,13 +47,13 @@ class Recipes extends React.Component {
 
     }
   }
-
+  // Get random wine
   getRandomize(winesArray) {
-    return winesArray[Math.floor(Math.random() * 99) + 1];
+    return winesArray[Math.floor(Math.random() * winesArray.length) + 1];
   }
 
   async componentDidMount() {
-
+    // LCBO axios call
     await axios({
       method: "GET",
       url: "http://proxy.hackeryou.com",
@@ -71,15 +71,16 @@ class Recipes extends React.Component {
         },
         xmlToJSON: false
       }
-
-      //Promise to return package unit type (can/bottle), total pacakge units (6/package), image_url, price, and producer name
+      // Return of async promise
     }).then(async res => {
       console.log(res);
       let curatingArray = [];
       // console.log(res.data.result[0].origin)
       let data = res.data.result;
-
+      console.log(data)
+      // iterating over array of wines for details
       for (let i = 0; i < data.length; i++) {
+        if (data[i].serving_suggestion != null) {
         const curated_dataset = {
           alcohol_content: (data[i].alcohol_content / 100).toString() + "%",
           name: data[i].name,
@@ -90,18 +91,17 @@ class Recipes extends React.Component {
           tasting_note: data[i].tasting_note,
           varietal: data[i].varietal,
           image_url: data[i].image_url,
+          image_thumb_url: data[i].image_url,
           key: i
         }
         curatingArray.push(curated_dataset);
       }
-
+      }
+      // This gets a produces the single random wine
       const singleWine = this.getRandomize(curatingArray);
+
       console.log(singleWine.serving_suggestion);
-
-
-
-
-
+      // This is the Dandelion text API
       await axios({
         method: "GET",
         url: "http://proxy.hackeryou.com",
@@ -116,17 +116,26 @@ class Recipes extends React.Component {
             text: singleWine.serving_suggestion,
           },
           xmlToJSON: false
-        }
-
-        //Promise to return package unit type (can/bottle), total pacakge units (6/package), image_url, price, and producer name
+        }  
+        // Return of promise
       }).then(async res => {
         const allIngredients = [];
-        allIngredients.push(res.data.annotations[0].spot, res.data.annotations[1].spot)
+        // if (res.data.annotations.length > 1) {
+        const filteredArray = res.data.annotations.filter((word) => {
+          word.spot !== 'aperitif' && word.spot !== 'patio' && word.spot !== 'appetizers' && word.spot !== 'wine' && word.spot !== 'dark' && word.spot !== 'fresh'
+          console.log(word.spot)
+          return word
+        })
+        allIngredients.push(filteredArray[0].spot)
+      // } 
+        // } else if (res.data.annotations.length > 0) {
+        //   allIngredients.push(res.data.annotations[0].spot) 
+        // } else {
+        //   return
+        // }
+
         const ingredients = allIngredients.join(', ');
-
         console.log(`ingredients: ${ingredients}`);
-        
-
         //embedded axios call
         await axios({
           url: 'https://api.yummly.com/v1/api/recipes',
@@ -145,7 +154,6 @@ class Recipes extends React.Component {
         })
           .then((res) => {
             console.log(res);
-
             const fullRecipes = res.data.matches;
             fullRecipes.map((recipe) => {
               let smallImage = recipe.smallImageUrls[0]
@@ -155,60 +163,15 @@ class Recipes extends React.Component {
               recipes: res.data.matches,
             })
           })
-
-
-
-
-
-
-
-
-
-
-
-
-
         this.setState({
           text: ingredients,
         })
       })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      
-      
-
-
-
-
-
-
-
       this.setState({
         wines: curatingArray,
         oneWine: singleWine
       })
     });
-
-
-    
-
-
-    
   }
   render() {
     return (
