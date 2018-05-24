@@ -20,14 +20,15 @@ body {
     margin-bottom: 40px;
     position: absolute;
     top: -35px;
-    left: calc(50% - 40px)
+    left: calc(50% - 33px)
 }
 /*██████████ LAYOUT DETAILS ██████████*/
 .landingPage, .recipesRender, .wineRender {
     padding: 20px 20px;
 }
 .recipesRender, .wineRender {
-    width: calc(50%);
+    width: 50%;
+    margin: 40px 0;
 }
 /*██████████ LANDING PAGE ██████████*/
 .landingPage {
@@ -69,12 +70,16 @@ body {
 /*██████████ WINE RENDER ██████████*/
 .wineRender {
     float: left;
-    background: cyan;
-    border-right: 
+    background: cyan; //TEMP
+    border-right: $basicBorder;
 }
 /*██████████ RECIPES RENDER ██████████*/
 .recipesRender {
     float: right;
     padding: 30px 20px;
     background: red;
+    .recipe {
+        background: aquamarine; //TEMP
+        margin-bottom: 20px;
+    }
 }
