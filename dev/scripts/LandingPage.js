@@ -1,4 +1,8 @@
 import React from 'react';
+import {
+  BrowserRouter as Router,
+  Route, Link, NavLink
+} from 'react-router-dom';
 
 const LandingPage = () => {
         return (
@@ -13,7 +17,7 @@ const LandingPage = () => {
                     <input type="checkbox" id=""/><label for="">Vegetarian</label>
                     <input type="checkbox" id="TEST"/><label for="TEST">Gluten-Free</label>
                 </div>
-                <input type="submit" value="Explore"/>
+                  <Link to="/recipes"><input type="submit" value="Explore"/></Link>
                 </form>
               </div>
           </main>
