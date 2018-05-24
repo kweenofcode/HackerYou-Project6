@@ -103,7 +103,7 @@ class Recipes extends React.Component {
           requirepictures: true,
           'allowedCourse': 'course^course-Main Dishes',
           'allowedDiet[]': `${this.state.diet.paleo}`,
-          q: `${singleWine.serving_suggestion}`,
+          q: 'fish',
           'allowedAllergy[]': `${this.state.allergies.gluten}`,
         },
         headers: {
