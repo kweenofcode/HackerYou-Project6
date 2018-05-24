@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import axios from 'axios';
 import Qs from 'qs';
 import Wine from './Wine';
+import LandingPage from './LandingPage';
 
       //origin
       //tasting_note
@@ -108,6 +109,8 @@ class App extends React.Component {
               testkey = {wine.key}
             />
           })}
+        <div className="wrapper">
+          <LandingPage/>
         </div>
       )
     }

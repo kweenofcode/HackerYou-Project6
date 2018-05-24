@@ -1,0 +1,44 @@
+@import "setup";
+@import "styleguide";
+@import "typography";
+@import "formElements";
+
+body {
+    background: $white;
+}
+.wrapper {
+    max-width: 960px;
+    margin: 30px auto;
+    border-top: solid 2px $primaryD;
+    border-bottom: solid 2px $primaryD;
+}
+.landingPage {
+    padding: 30px 20px;
+    max-width: 600px;
+    margin: 0 auto;
+    height: calc(100vh - 65px);
+    position: relative;
+    .landingContent {
+        width: 100%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        p {
+            margin-bottom: 40px;
+            &:after {
+                content: "";
+                display: block;
+                margin: 0 auto;
+                width: 65%;
+                padding-top: 40px;
+                border-bottom: 5px solid $primaryL;
+                }
+        }
+        form {
+            input[type=submit] {
+                margin: 0 auto;
+            }
+        }
+    }
+}
