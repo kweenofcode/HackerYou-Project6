@@ -45,9 +45,9 @@ class Recipes extends React.Component {
 
     }
   }
-  getRandomize(winesArray) {
-    return winesArray[Math.floor(Math.random() * 100) + 1];
 
+  getRandomize(winesArray) {
+    return winesArray[Math.floor(Math.random() * 99) + 1];
   }
 
   async componentDidMount() {
@@ -95,34 +95,100 @@ class Recipes extends React.Component {
 
       const singleWine = this.getRandomize(curatingArray);
       console.log(singleWine.serving_suggestion);
-      
-      //embedded axios call
+
+
+
+
+
       await axios({
-        url: 'https://api.yummly.com/v1/api/recipes',
+        method: "GET",
+        url: "http://proxy.hackeryou.com",
+        dataResponse: "json",
+        paramsSerializer: function (params) {
+          return Qs.stringify(params, { arrayFormat: "brackets" });
+        },
         params: {
-          requirepictures: true,
-          'allowedCourse': 'course^course-Main Dishes',
-          'allowedDiet[]': `${this.state.diet.paleo}`,
-          q: `${singleWine.serving_suggestion}`,
-          'allowedAllergy[]': `${this.state.allergies.gluten}`,
-        },
-        headers: {
-          'X-Yummly-App-ID': "dfbe7dff",
-          'X-Yummly-App-Key': '2bccb2cb18b4186352c9c884a2cff49a',
-        },
-      })
-        .then((res) => {
-          console.log(res);
-          
-          const fullRecipes = res.data.matches;
-          fullRecipes.map((recipe) => {
-            let smallImage = recipe.smallImageUrls[0]
-            recipe.smallImageUrls = smallImage.split('=')[0];
-          })
-          this.setState({
-            recipes: res.data.matches,
-          })
+          reqUrl: "https://api.dandelion.eu/datatxt/nex/v1",
+          params: {
+            token: 'bc77fbf397184fc1b069f3085e709f0d',
+            text: singleWine.serving_suggestion,
+          },
+          xmlToJSON: false
+        }
+
+        //Promise to return package unit type (can/bottle), total pacakge units (6/package), image_url, price, and producer name
+      }).then(async res => {
+        const allIngredients = [];
+        allIngredients.push(res.data.annotations[0].spot, res.data.annotations[1].spot)
+        const ingredients = allIngredients.join(', ');
+
+        console.log(`ingredients: ${ingredients}`);
+        
+
+        //embedded axios call
+        await axios({
+          url: 'https://api.yummly.com/v1/api/recipes',
+          params: {
+            requirepictures: true,
+            'allowedCourse': 'course^course-Main Dishes',
+            'allowedDiet[]': `${this.state.diet.paleo}`,
+            q: `${ingredients}`,
+            'allowedAllergy[]': `${this.state.allergies.gluten}`,
+            maxResult: 3,
+          },
+          headers: {
+            'X-Yummly-App-ID': "dfbe7dff",
+            'X-Yummly-App-Key': '2bccb2cb18b4186352c9c884a2cff49a',
+          },
         })
+          .then((res) => {
+            console.log(res);
+
+            const fullRecipes = res.data.matches;
+            fullRecipes.map((recipe) => {
+              let smallImage = recipe.smallImageUrls[0]
+              recipe.smallImageUrls = smallImage.split('=')[0];
+            })
+            this.setState({
+              recipes: res.data.matches,
+            })
+          })
+
+
+
+
+
+
+
+
+
+
+
+
+
+        this.setState({
+          text: ingredients,
+        })
+      })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      
+      
 
 
 
@@ -135,9 +201,6 @@ class Recipes extends React.Component {
       })
     });
 
-
-    
-    const singleWine = this.getRandomize(this.state.wines);
 
     
 
@@ -153,7 +216,7 @@ class Recipes extends React.Component {
         <section className="recipesRender">
           <h2>Recipes</h2>
           {this.state.recipes.map((recipe, i) => {
-            if(recipe.rating >= 4) {
+            if(recipe.rating >= 3) {
             return(
             <div key={recipe.id}>
             <Link to={`recipe/${recipe.id}`}>
