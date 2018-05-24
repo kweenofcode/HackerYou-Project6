@@ -34,6 +34,7 @@ class Recipes extends React.Component {
       wines: [{
         alcohol_content: 0,
         origin: '',
+        name: '',
         tasting_note: '',
         serving_suggestion: '',
         secondary_category: '',
@@ -41,7 +42,8 @@ class Recipes extends React.Component {
         image_url: '',
         image_thumb_url: '',
         style: ''
-      }]
+      }],
+      oneWine: ''
 
     }
   }
@@ -80,6 +82,7 @@ class Recipes extends React.Component {
       for (let i = 0; i < data.length; i++) {
         const curated_dataset = {
           alcohol_content: (data[i].alcohol_content / 100).toString() + "%",
+          name: data[i].name,
           origin: data[i].origin,
           secondary_category: data[i].secondary_category,
           serving_suggestion: data[i].serving_suggestion,
@@ -196,7 +199,8 @@ class Recipes extends React.Component {
 
 
       this.setState({
-        wines: curatingArray
+        wines: curatingArray,
+        oneWine: singleWine
       })
     });
 
@@ -210,29 +214,35 @@ class Recipes extends React.Component {
     return (
       <div className="clear">
         <section className="wineRender">
-          <h2>[WINE TITLE]</h2>
+          <h2>{this.state.oneWine.name}</h2>
+          <h3>{this.state.oneWine.origin}</h3>
+          <h4>{this.state.oneWine.secondary_category}</h4>
+          <h5>Alcohol Content: {this.state.oneWine.alcohol_content}</h5>
+          <h5>{this.state.oneWine.style}</h5>
+          <h5>{this.state.oneWine.tasting_note}</h5>
+          <h5>{this.state.oneWine.varietal}</h5>
+          <img className="wineImage" url={this.state.oneWine.image_thumb_url}></img>
         </section>
         <section className="recipesRender">
-          <h2>Recipes</h2>
           {this.state.recipes.map((recipe, i) => {
             if(recipe.rating >= 3) {
-            return(
-            <div key={recipe.id}>
-            <Link to={`recipe/${recipe.id}`}>
-            <img src={recipe.smallImageUrls} alt=""/>
-            </Link>
-            <h2>{recipe.recipeName}</h2>
-            <p>{recipe.rating}</p>
-            <ul>{recipe.ingredients.map((ingredient) =>{
-              return (
-                <li>{ingredient}</li>)
-              })}
-            </ul>
-            <p>{recipe.attributes.course}</p>
-            <p>{recipe.sourceDisplayName}</p>
-            <p>{recipe.id}</p>
-            </div>
-            )
+              return(
+              <div className="recipe" key={recipe.id}>
+                <Link to={`recipe/${recipe.id}`}>
+                  <img src={recipe.smallImageUrls} alt=""/>
+                </Link>
+                <h2>{recipe.recipeName}</h2>
+                <p>{recipe.rating}</p>
+                <ul>{recipe.ingredients.map((ingredient) =>{
+                  return (
+                    <li>{ingredient}</li>)
+                  })}
+                </ul>
+                <p>{recipe.attributes.course}</p>
+                <p>{recipe.sourceDisplayName}</p>
+                <p>{recipe.id}</p>
+              </div>
+              )
             }
           })}
           <p>{this.state.diet.Pescetarian}</p>
@@ -241,10 +251,11 @@ class Recipes extends React.Component {
 
 
           <div className="wineMigrationTest">
-          {this.state.wines.map((wine, index) => {
+          {/*this.state.wines.map((wine, index) => {
             return <Wine
               key={`${wine.key}${wine.origin}${wine.secondary_category}`}
               alcohol_content={wine.alcohol_content}
+              name={wine.name}
               origin={wine.origin}
               secondary_category={wine.secondary_category}
               serving_suggestion={wine.serving_suggestion}
@@ -255,7 +266,7 @@ class Recipes extends React.Component {
               image_thumb_url={wine.image_thumb_url}
               testkey={wine.key}
             />
-          })}
+          })*/}
           </div>
         </section>
       </div>
