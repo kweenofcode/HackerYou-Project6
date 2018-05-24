@@ -109,6 +109,7 @@ class App extends React.Component {
             <Route path="/recipe/:recipe_id" component={SingleRecipe} />
             <Route exact path="/" component={LandingPage} />
             <Route exact path="/recipes" component={Recipes} />
+            <Text/>
           </div>
         </Router>
         <div>

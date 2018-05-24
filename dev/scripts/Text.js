@@ -9,16 +9,30 @@ class Text extends React.Component{
   }
   componentDidMount(){
     axios({
-      url: 'https://api.dandelion.eu/datatxt/nex/v1',
-      data: {
-        token: 'bc77fbf397184fc1b069f3085e709f0d',
-        text: 'Pairs perfectly with red berries and red meat',
+      method: "GET",
+      url: "http://proxy.hackeryou.com",
+      dataResponse: "json",
+      paramsSerializer: function (params) {
+        return Qs.stringify(params, { arrayFormat: "brackets" });
       },
-      dataType: 'jsonp',
+      params: {
+        reqUrl: "https://api.dandelion.eu/datatxt/nex/v1",
+        params: {
+          token: 'bc77fbf397184fc1b069f3085e709f0d',
+          text: 'Ideal for serving alongside grilled red meats, pot roast, lamb kebobs, grilled Portobello mushrooms or aged cheddar',
+        },
+        xmlToJSON: false
+      }
+
+      //Promise to return package unit type (can/bottle), total pacakge units (6/package), image_url, price, and producer name
+    }).then(res => {
+    const allIngredients = [];
+    allIngredients.push(res.data.annotations[0].spot)
+    const ingredients = allIngredients.join(', ');
+    this.setState({
+      text: ingredients,
     })
-    .then((res) => {
-      console.log(res);
-    })
+  })
   }
   render(){
     return(
