@@ -70,16 +70,45 @@ body {
 /*██████████ WINE RENDER ██████████*/
 .wineRender {
     float: left;
-    background: cyan; //TEMP
-    border-right: $basicBorder;
+    .wineOrigin {
+        text-align: center;
+    }
+    .wineTags {
+        font-size: 12px;
+        text-align: center;
+    }
+    .wineDesc {
+        margin: 20px 0;
+    }
 }
 /*██████████ RECIPES RENDER ██████████*/
 .recipesRender {
     float: right;
-    padding: 30px 20px;
-    background: red;
+    border-left: $basicBorder;
+    img {
+        width: 100%;
+    }
     .recipe {
-        background: aquamarine; //TEMP
         margin-bottom: 20px;
+        padding-bottom: 20px;
+        border-bottom: $basicBorder;
+        &:last-of-type {
+            margin-bottom: 0px;
+            padding-bottom: 0px;
+            border-bottom: 0px;
+        }
+        .recipeAuthor {
+            text-align: center;
+            font-size: 12px;
+            padding-top: 10px;
+        }
+        .ingredientsList li {
+            float: left;
+            width: 45%;
+            margin-bottom: 5px;
+            font-size: 12px;
+            &:nth-of-type(2n + 2) {
+            }
+        }
     }
 }
