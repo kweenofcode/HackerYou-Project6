@@ -13,8 +13,9 @@ class App extends React.Component {
       return (
         <Router>
         <div>
-          <Route path="/recipe/:recipe_id" component={SingleRecipe} />
-          <Route exact path="/" component={Recipes} />
+          <Route path="/recipes/:recipe_id" component={SingleRecipe} />
+          <Route exact path="/" component={app.js} />
+          <Route path="/recipes" component={Recipes} />
           <Text />
         </div>
         </Router>
