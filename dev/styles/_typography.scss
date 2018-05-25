@@ -3,7 +3,7 @@ h1, h2, h3, h4, h5, h6 {
     @include headingCopy;
     color: $primaryL;
 }
-h2, h3 {
+h2 {
     text-align: center;
 }
 h1 {
@@ -35,4 +35,11 @@ body, label {
 }
 p {
     line-height: 1.6;
+}
+a {
+    text-decoration: none;
+    color: $primaryL;
+    &:hover {
+        color: $secondaryD;
+    }
 }

@@ -215,7 +215,7 @@ class Recipes extends React.Component {
         </section>
 
         <section className="recipesRender">
-          <h2>Top 3 Curated Dishes</h2>
+          <h2>Top 3 Paired Dishes</h2>
           {this.state.recipes.map((recipe, i) => {
             if(recipe.rating >= 3) {
               return(
@@ -223,10 +223,12 @@ class Recipes extends React.Component {
                 <Link to={`recipe/${recipe.id}`}>
                   <img src={recipe.smallImageUrls} alt=""/>
                 </Link>
+                <Link to={`recipe/${recipe.id}`}>
                 <h3>{recipe.recipeName}</h3>
+                </Link>
                 <p className="recipeAuthor">Recipe by: {recipe.sourceDisplayName}</p>
                 <p>Ingredients:</p>
-                <ul class="ingredientsList clear">{recipe.ingredients.map((ingredient, index) =>{
+                <ul className="ingredientsList clear">{recipe.ingredients.map((ingredient) =>{
                   return (
                       <li>+ {ingredient}</li>
                     )
