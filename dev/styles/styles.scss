@@ -69,7 +69,6 @@ body {
 }
 /*██████████ WINE RENDER ██████████*/
 .wineRender {
-    float: left;
     .wineOrigin {
         text-align: center;
     }
@@ -83,10 +82,17 @@ body {
 }
 /*██████████ RECIPES RENDER ██████████*/
 .recipesRender {
-    float: right;
     border-left: $basicBorder;
-    img {
+    .recipeImageContainer {
+        object-fit: cover;
+        max-height: 300px;
         width: 100%;
+        overflow: hidden;
+        img {
+            width: 100%;;
+            height: 100%;
+            object-fit: cover;
+        }
     }
     .recipe {
         margin-bottom: 20px;
@@ -108,23 +114,21 @@ body {
             float: left;
             margin-bottom: 5px;
             font-size: 12px;
-            background: aqua;
             margin-right: 10px;
         }
     }
 }
-/*██████████ RECIPE(S) RENDER COMMON STYLES ██████████*/
 /*██████████ SINGLE RECIPE RENDER ██████████*/
 .recipeRender {
     padding: 0 20px;
     margin: 40px 0;
     min-height: calc(100vh - 165px);
+    .linkContainerC {
+        margin: 0 auto;
+        text-align: center;
+    }
     h2 {
         margin-bottom: 10px;
-    }
-    img {
-        margin:  0 auto;
-        display: block;
     }
     .recipeImage {
         margin-top: 10px;
@@ -139,6 +143,8 @@ body {
     .recipeIngredients {
         width: 50%;
         border-right: $basicBorder;
+        display: block;
+        min-height: 100%;
         h3 {
             margin-bottom: 10px;
         }
