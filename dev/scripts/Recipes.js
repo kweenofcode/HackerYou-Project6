@@ -8,6 +8,7 @@ import SingleRecipe from './SingleRecipe';
 import Wine from './Wine';
 import Qs from 'qs';
 import regeneratorRuntime from 'regenerator-runtime';
+import Ingredient from './Ingredient';
 
 class Recipes extends React.Component {
   constructor() {
@@ -114,8 +115,6 @@ class Recipes extends React.Component {
       }
 
 
-      // const singleWine = curatingArray[37];
-      // console.log(singleWine);
       console.log(singleWine.serving_suggestion);
       // This is the Dandelion text API
       await axios({
@@ -153,13 +152,6 @@ class Recipes extends React.Component {
           ingredients = allIngredients.join(', ');
 
         }
-      // } 
-        // } else if (res.data.annotations.length > 0) {
-        //   allIngredients.push(res.data.annotations[0].spot) 
-        // } else {
-        //   return
-        // }
-
 
         console.log(`ingredients: ${ingredients}`);
         
@@ -181,7 +173,6 @@ class Recipes extends React.Component {
         })
           .then((res) => {
             console.log(res);
-            //we need to straight up map out all of the relevant data, because this piece of code will slip if smallImageUrl is not found. I've made it so that if it is not found, then we can just ignore it, but the match should probably just be botched. We could even have the maxResult be greater than 3 and filter it to be until the array length is 3 as well so in *most* cases it would be 3. Maybe a while loop and a counter would do the trick
             const fullRecipes = res.data.matches;
             
             fullRecipes.map((recipe) => {
@@ -210,11 +201,15 @@ class Recipes extends React.Component {
 
         <section className="wineRender">
           <h2>VQA Wine Spotlight</h2>
-          <img className="wineImage" src={this.state.oneWine.image_url}></img>
-          <h3>{this.state.oneWine.name}</h3>
-          <p className="wineOrigin">{this.state.oneWine.origin}</p>
-          <p className="wineDesc">{this.state.oneWine.tasting_note}</p>
-          <p className="wineTags">{this.state.oneWine.secondary_category} | Alcohol Content: {this.state.oneWine.alcohol_content}| {this.state.oneWine.style}</p>
+          return <Wine 
+            alcohol_content={this.state.oneWine.alcohol_content}
+            name={this.state.oneWine.name}
+            image_url={this.state.oneWine.image_url}
+            origin={this.state.oneWine.origin}
+            secondary_category = {this.state.oneWine.secondary_category}
+            style = {this.state.oneWine.style}
+            tasting_note={this.state.oneWine.tasting_note}
+          />
         </section>
 
         <section className="recipesRender">
@@ -229,13 +224,15 @@ class Recipes extends React.Component {
                 <Link to={`recipe/${recipe.id}`}>
                 <h3>{recipe.recipeName}</h3>
                 </Link>
+
                 <p className="recipeAuthor">Recipe by: {recipe.sourceDisplayName}</p>
                 <p>Ingredients:</p>
                 <ul className="ingredientsList clear">{recipe.ingredients.map((ingredient) =>{
-                  return (
-                      <li>+ {ingredient}</li>
-                    )
-                  })}
+                  return <Ingredient 
+                    key = {ingredient.key + ingredient}
+                    ingredient = {ingredient}
+                  />
+                })}
                 </ul>
               </div>
               )
