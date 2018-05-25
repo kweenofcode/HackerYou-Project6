@@ -8,6 +8,7 @@ import SingleRecipe from './SingleRecipe';
 import Wine from './Wine';
 import Qs from 'qs';
 import regeneratorRuntime from 'regenerator-runtime';
+import Ingredient from './Ingredient';
 
 class Recipes extends React.Component {
   constructor() {
@@ -114,8 +115,6 @@ class Recipes extends React.Component {
       }
 
 
-      // const singleWine = curatingArray[37];
-      // console.log(singleWine);
       console.log(singleWine.serving_suggestion);
       // This is the Dandelion text API
       await axios({
@@ -153,13 +152,6 @@ class Recipes extends React.Component {
           ingredients = allIngredients.join(', ');
 
         }
-      // } 
-        // } else if (res.data.annotations.length > 0) {
-        //   allIngredients.push(res.data.annotations[0].spot) 
-        // } else {
-        //   return
-        // }
-
 
         console.log(`ingredients: ${ingredients}`);
         
@@ -181,7 +173,6 @@ class Recipes extends React.Component {
         })
           .then((res) => {
             console.log(res);
-            //we need to straight up map out all of the relevant data, because this piece of code will slip if smallImageUrl is not found. I've made it so that if it is not found, then we can just ignore it, but the match should probably just be botched. We could even have the maxResult be greater than 3 and filter it to be until the array length is 3 as well so in *most* cases it would be 3. Maybe a while loop and a counter would do the trick
             const fullRecipes = res.data.matches;
             
             fullRecipes.map((recipe) => {
@@ -232,10 +223,11 @@ class Recipes extends React.Component {
                 <p className="recipeAuthor">Recipe by: {recipe.sourceDisplayName}</p>
                 <p>Ingredients:</p>
                 <ul className="ingredientsList clear">{recipe.ingredients.map((ingredient) =>{
-                  return (
-                      <li>+ {ingredient}</li>
-                    )
-                  })}
+                  return <Ingredient 
+                    key = {ingredient.key + ingredient}
+                    ingredient = {ingredient}
+                  />
+                })}
                 </ul>
               </div>
               )

@@ -2,9 +2,9 @@ import React from 'react';
 
 const Wine = (props) => {
     return (
-        <div>
+        <li>
             {props.name}
-        </div>
+        </li>
     )
 
 }
