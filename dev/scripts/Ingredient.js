@@ -5,7 +5,7 @@ import React from 'React';
 const Ingredient = (props) => {
     return (
         <li>
-            {props.ingredient}
+            + {props.ingredient}
         </li>
     )
 }

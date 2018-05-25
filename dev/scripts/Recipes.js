@@ -201,11 +201,15 @@ class Recipes extends React.Component {
 
         <section className="wineRender">
           <h2>VQA Wine Spotlight</h2>
-          <img className="wineImage" src={this.state.oneWine.image_url}></img>
-          <h3>{this.state.oneWine.name}</h3>
-          <p className="wineOrigin">{this.state.oneWine.origin}</p>
-          <p className="wineDesc">{this.state.oneWine.tasting_note}</p>
-          <p className="wineTags">{this.state.oneWine.secondary_category} | Alcohol Content: {this.state.oneWine.alcohol_content}| {this.state.oneWine.style}</p>
+          return <Wine 
+            alcohol_content={this.state.oneWine.alcohol_content}
+            name={this.state.oneWine.name}
+            image_url={this.state.oneWine.image_url}
+            origin={this.state.oneWine.origin}
+            secondary_category = {this.state.oneWine.secondary_category}
+            style = {this.state.oneWine.style}
+            tasting_note={this.state.oneWine.tasting_note}
+          />
         </section>
 
         <section className="recipesRender">
@@ -220,6 +224,7 @@ class Recipes extends React.Component {
                 <Link to={`recipe/${recipe.id}`}>
                 <h3>{recipe.recipeName}</h3>
                 </Link>
+
                 <p className="recipeAuthor">Recipe by: {recipe.sourceDisplayName}</p>
                 <p>Ingredients:</p>
                 <ul className="ingredientsList clear">{recipe.ingredients.map((ingredient) =>{
