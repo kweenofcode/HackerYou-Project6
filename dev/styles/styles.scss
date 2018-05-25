@@ -2,7 +2,7 @@
 @import "styleguide";
 @import "typography";
 @import "formElements";
-/*██████████ GLOBAL ██████████*/
+//██████████ GLOBAL ██████████
 body {
     background: $white;
     position: relative;
@@ -22,7 +22,7 @@ body {
     top: -35px;
     left: calc(50% - 33px)
 }
-/*██████████ LAYOUT DETAILS ██████████*/
+//██████████ LAYOUT DETAILS ██████████
 .landingPage, .recipesRender, .wineRender{
     padding: 20px 20px;
 }
@@ -30,7 +30,7 @@ body {
     width: 50%;
     margin: 40px 0;
 }
-/*██████████ LANDING PAGE ██████████*/
+//██████████ LANDING PAGE ██████████
 .landingPage {
     max-width: 600px;
     margin: 0 auto;
@@ -67,7 +67,7 @@ body {
         }
     }
 }
-/*██████████ WINE RENDER ██████████*/
+//██████████ WINE RENDER ██████████
 .wineRender {
     .wineOrigin {
         text-align: center;
@@ -80,7 +80,7 @@ body {
         margin: 20px 0;
     }
 }
-/*██████████ RECIPES RENDER ██████████*/
+//██████████ RECIPES RENDER ██████████
 .recipesRender {
     border-left: $basicBorder;
     .recipeImageContainer {
@@ -115,10 +115,11 @@ body {
             margin-bottom: 5px;
             font-size: 12px;
             margin-right: 10px;
+            width: 40%;
         }
     }
 }
-/*██████████ SINGLE RECIPE RENDER ██████████*/
+//██████████ SINGLE RECIPE RENDER ██████████
 .recipeRender {
     padding: 0 20px;
     margin: 40px 0;
