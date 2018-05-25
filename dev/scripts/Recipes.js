@@ -185,7 +185,7 @@ class Recipes extends React.Component {
     return (
       <div className="clear">
 
-        <section className="wineRender">
+        <section className="wineRender fl">
           <h2>VQA Wine Spotlight</h2>
           <Wine 
             alcohol_content={this.state.oneWine.alcohol_content}
@@ -198,14 +198,16 @@ class Recipes extends React.Component {
           />
         </section>
 
-        <section className="recipesRender">
+        <section className="recipesRender fr">
           <h2>Top 3 Paired Dishes</h2>
           {this.state.recipes.map((recipe, i) => {
             if(recipe.rating >= 3) {
               return(
               <div className="recipe" key={recipe.id + recipe.smallImageUrls + recipe.recipeName + recipe.sourceDisplayName}>
                 <Link to={`recipe/${recipe.id}`}>
-                  <img src={recipe.smallImageUrls} alt=""/>
+                  <div className="recipeImageContainer">
+                    <img src={recipe.smallImageUrls} alt=""/>
+                  </div>
                 </Link>
                 <Link to={`recipe/${recipe.id}`}>
                 <h3>{recipe.recipeName}</h3>

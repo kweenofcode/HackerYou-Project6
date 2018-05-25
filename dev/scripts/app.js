@@ -24,7 +24,6 @@ class App extends React.Component {
 }
     render() {
       return (
-        <div>
           <div>
             <Router>
               <main className="wrapper">
@@ -35,7 +34,6 @@ class App extends React.Component {
               </main>
             </Router>
           </div>
-        </div>
       )
     }
 }
