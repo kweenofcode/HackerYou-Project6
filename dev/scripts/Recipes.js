@@ -16,22 +16,7 @@ class Recipes extends React.Component {
     this.state = {
       recipes: [],
       q: '',
-      diet: {
-        lacto: '388^Lacto vegetarian',
-        ovo: '389^Ovo vegetarian',
-        pescetarian: '390^Pescetarian',
-        vegan: '386^Vegan',
-        paleo: '403^Paleo',
-      },
-      allergies: {
-        gluten: '393^Gluten-Free',
-        seafood: '398^Seafood-Free',
-        soy: '400^Soy-Free',
-        dairy: '396^Dairy-Free',
-        egg: '397^Egg-Free',
-        nut: '395^Tree Nut-Free',
-      },
-
+      diet: '',
       wines: [{
         alcohol_content: 0,
         origin: '',
@@ -45,7 +30,6 @@ class Recipes extends React.Component {
         style: ''
       }],
       oneWine: ''
-
     }
   }
   // Get random wine
@@ -55,8 +39,11 @@ class Recipes extends React.Component {
     return winesArray[Math.floor((Math.random() * (winesArray.length - 1) + 1))]
     // return Math.floor((Math.random() * winesArray.length) + 1);
   }
-
   async componentDidMount() {
+    const diet = `${this.props.diet}`;
+    this.setState ({
+      diet: diet,
+    })
     // LCBO axios call
     await axios({
       method: "GET",
@@ -161,9 +148,8 @@ class Recipes extends React.Component {
           params: {
             requirePictures: true,
             'allowedCourse': 'course^course-Main Dishes',
-            'allowedDiet[]': `${this.state.diet.paleo}`,
+            'allowedDiet[]': `${this.state.diet}`,
             q: `${ingredients}`,
-            'allowedAllergy[]': `${this.state.allergies.gluten}`,
             maxResult: 3,
           },
           headers: {
