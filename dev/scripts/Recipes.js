@@ -49,9 +49,9 @@ class Recipes extends React.Component {
   }
   // Get random wine
   getRandomize(winesArray) {
-    // console.log(Math.floor((Math.random() * winesArray.length) + 1));
+    console.log(Math.floor((Math.random() * (winesArray.length) - 1) + 1));
       
-    return winesArray[Math.floor((Math.random() * winesArray.length))]
+    return winesArray[Math.floor((Math.random() * (winesArray.length - 1) + 1))]
     // return Math.floor((Math.random() * winesArray.length) + 1);
   }
 
@@ -141,7 +141,7 @@ class Recipes extends React.Component {
         
         // if (res.data.annotations.length > 1) {
         const filteredArray = res.data.annotations.filter((word) => {
-          return (word.spot !== 'aperitif') && (word.spot !== 'patio') && (word.spot !== 'appetizers') && (word.spot !== 'wine') && (word.spot !== 'dark') && (word.spot !== 'fresh') && (word.spot !== 'Enjoy')//juicy fruits
+          return (word.spot !== 'aperitif') && (word.spot !== 'patio') && (word.spot !== 'appetizers') && (word.spot !== 'wine') && (word.spot !== 'dark') && (word.spot !== 'fresh') && (word.spot !== 'Enjoy') && (word.spot !== 'juicy')//juicy fruits
         })
 
         let ingredients;
