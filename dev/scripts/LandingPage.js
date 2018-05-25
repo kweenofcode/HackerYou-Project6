@@ -76,7 +76,7 @@ class LandingPage extends React.Component {
                       } 
                     )}
                   </div>
-                  <Link to="/recipes"><input type="submit" value="Explore"/></Link>
+                  <button><Link to="/recipes">Explore</Link></button>
                 </form>
               </div>
           </section>

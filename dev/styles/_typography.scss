@@ -1,4 +1,4 @@
-/*██████████ HEADINGS ██████████*/
+//██████████ HEADINGS ██████████
 h1, h2, h3, h4, h5, h6 {
     @include headingCopy;
     color: $primaryL;
@@ -28,7 +28,7 @@ h2 {
 h3 {
     font-size: 28px;
 }
-/*██████████ GLOBAL TYPOGRAPHY ELEMENTS ██████████*/
+//██████████ GLOBAL TYPOGRAPHY ELEMENTS ██████████
 body, label {
     @include bodyCopy;
     color: $primaryD;
