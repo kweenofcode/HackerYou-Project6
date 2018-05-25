@@ -187,7 +187,7 @@ class Recipes extends React.Component {
 
         <section className="wineRender fl">
           <h2>VQA Wine Spotlight</h2>
-          return <Wine 
+          <Wine 
             alcohol_content={this.state.oneWine.alcohol_content}
             name={this.state.oneWine.name}
             image_url={this.state.oneWine.image_url}
