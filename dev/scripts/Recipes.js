@@ -8,6 +8,7 @@ import SingleRecipe from './SingleRecipe';
 import Wine from './Wine';
 import Qs from 'qs';
 import regeneratorRuntime from 'regenerator-runtime';
+import Ingredient from './Ingredient';
 
 class Recipes extends React.Component {
   constructor() {
@@ -15,22 +16,7 @@ class Recipes extends React.Component {
     this.state = {
       recipes: [],
       q: '',
-      diet: {
-        lacto: '388^Lacto vegetarian',
-        ovo: '389^Ovo vegetarian',
-        pescetarian: '390^Pescetarian',
-        vegan: '386^Vegan',
-        paleo: '403^Paleo',
-      },
-      allergies: {
-        gluten: '393^Gluten-Free',
-        seafood: '398^Seafood-Free',
-        soy: '400^Soy-Free',
-        dairy: '396^Dairy-Free',
-        egg: '397^Egg-Free',
-        nut: '395^Tree Nut-Free',
-      },
-
+      diet: '',
       wines: [{
         alcohol_content: 0,
         origin: '',
@@ -44,18 +30,20 @@ class Recipes extends React.Component {
         style: ''
       }],
       oneWine: ''
-
     }
   }
   // Get random wine
   getRandomize(winesArray) {
-    // console.log(Math.floor((Math.random() * winesArray.length) + 1));
+    console.log(Math.floor((Math.random() * (winesArray.length) - 1) + 1));
       
-    return winesArray[Math.floor((Math.random() * winesArray.length))]
+    return winesArray[Math.floor((Math.random() * (winesArray.length - 1) + 1))]
     // return Math.floor((Math.random() * winesArray.length) + 1);
   }
-
   async componentDidMount() {
+    const diet = `${this.props.diet}`;
+    this.setState ({
+      diet: diet,
+    })
     // LCBO axios call
     await axios({
       method: "GET",
@@ -114,8 +102,6 @@ class Recipes extends React.Component {
       }
 
 
-      // const singleWine = curatingArray[37];
-      // console.log(singleWine);
       console.log(singleWine.serving_suggestion);
       // This is the Dandelion text API
       await axios({
@@ -141,7 +127,7 @@ class Recipes extends React.Component {
         
         // if (res.data.annotations.length > 1) {
         const filteredArray = res.data.annotations.filter((word) => {
-          return (word.spot !== 'aperitif') && (word.spot !== 'patio') && (word.spot !== 'appetizers') && (word.spot !== 'wine') && (word.spot !== 'dark') && (word.spot !== 'fresh') && (word.spot !== 'Enjoy')//juicy fruits
+          return (word.spot !== 'aperitif') && (word.spot !== 'patio') && (word.spot !== 'appetizers') && (word.spot !== 'wine') && (word.spot !== 'dark') && (word.spot !== 'fresh') && (word.spot !== 'Enjoy') && (word.spot !== 'juicy')//juicy fruits
         })
 
         let ingredients;
@@ -153,13 +139,6 @@ class Recipes extends React.Component {
           ingredients = allIngredients.join(', ');
 
         }
-      // } 
-        // } else if (res.data.annotations.length > 0) {
-        //   allIngredients.push(res.data.annotations[0].spot) 
-        // } else {
-        //   return
-        // }
-
 
         console.log(`ingredients: ${ingredients}`);
         
@@ -169,9 +148,8 @@ class Recipes extends React.Component {
           params: {
             requirePictures: true,
             'allowedCourse': 'course^course-Main Dishes',
-            'allowedDiet[]': `${this.state.diet.paleo}`,
+            'allowedDiet[]': `${this.state.diet}`,
             q: `${ingredients}`,
-            'allowedAllergy[]': `${this.state.allergies.gluten}`,
             maxResult: 3,
           },
           headers: {
@@ -181,7 +159,6 @@ class Recipes extends React.Component {
         })
           .then((res) => {
             console.log(res);
-            //we need to straight up map out all of the relevant data, because this piece of code will slip if smallImageUrl is not found. I've made it so that if it is not found, then we can just ignore it, but the match should probably just be botched. We could even have the maxResult be greater than 3 and filter it to be until the array length is 3 as well so in *most* cases it would be 3. Maybe a while loop and a counter would do the trick
             const fullRecipes = res.data.matches;
             
             fullRecipes.map((recipe) => {
@@ -210,11 +187,15 @@ class Recipes extends React.Component {
 
         <section className="wineRender fl">
           <h2>VQA Wine Spotlight</h2>
-          <img className="wineImage" src={this.state.oneWine.image_url}></img>
-          <h3>{this.state.oneWine.name}</h3>
-          <p className="wineOrigin">{this.state.oneWine.origin}</p>
-          <p className="wineDesc">{this.state.oneWine.tasting_note}</p>
-          <p className="wineTags">{this.state.oneWine.secondary_category} | Alcohol Content: {this.state.oneWine.alcohol_content}| {this.state.oneWine.style}</p>
+          return <Wine 
+            alcohol_content={this.state.oneWine.alcohol_content}
+            name={this.state.oneWine.name}
+            image_url={this.state.oneWine.image_url}
+            origin={this.state.oneWine.origin}
+            secondary_category = {this.state.oneWine.secondary_category}
+            style = {this.state.oneWine.style}
+            tasting_note={this.state.oneWine.tasting_note}
+          />
         </section>
 
         <section className="recipesRender fr">
@@ -231,13 +212,15 @@ class Recipes extends React.Component {
                 <Link to={`recipe/${recipe.id}`}>
                 <h3>{recipe.recipeName}</h3>
                 </Link>
+
                 <p className="recipeAuthor">Recipe by: {recipe.sourceDisplayName}</p>
                 <p>Ingredients:</p>
                 <ul className="ingredientsList clear">{recipe.ingredients.map((ingredient) =>{
-                  return (
-                      <li>+ {ingredient}</li>
-                    )
-                  })}
+                  return <Ingredient 
+                    key = {ingredient.key + ingredient}
+                    ingredient = {ingredient}
+                  />
+                })}
                 </ul>
               </div>
               )
