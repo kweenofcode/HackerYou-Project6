@@ -15,22 +15,7 @@ class Recipes extends React.Component {
     this.state = {
       recipes: [],
       q: '',
-      diet: {
-        lacto: '388^Lacto vegetarian',
-        ovo: '389^Ovo vegetarian',
-        pescetarian: '390^Pescetarian',
-        vegan: '386^Vegan',
-        paleo: '403^Paleo',
-      },
-      allergies: {
-        gluten: '393^Gluten-Free',
-        seafood: '398^Seafood-Free',
-        soy: '400^Soy-Free',
-        dairy: '396^Dairy-Free',
-        egg: '397^Egg-Free',
-        nut: '395^Tree Nut-Free',
-      },
-
+      diet: '',
       wines: [{
         alcohol_content: 0,
         origin: '',
@@ -44,15 +29,17 @@ class Recipes extends React.Component {
         style: ''
       }],
       oneWine: ''
-
     }
   }
   // Get random wine
   getRandomize(winesArray) {
     return winesArray[Math.floor(Math.random() * winesArray.length) + 1];
   }
-
   async componentDidMount() {
+    const diet = `${this.props.diet}`;
+    this.setState ({
+      diet: diet,
+    })
     // LCBO axios call
     await axios({
       method: "GET",
@@ -99,6 +86,8 @@ class Recipes extends React.Component {
       }
       // This gets a produces the single random wine
       const singleWine = this.getRandomize(curatingArray);
+      // const singleWine = curatingArray[36];
+
 
       console.log(singleWine.serving_suggestion);
       // This is the Dandelion text API
@@ -123,16 +112,10 @@ class Recipes extends React.Component {
         // if (res.data.annotations.length > 1) {
         const filteredArray = res.data.annotations.filter((word) => {
           word.spot !== 'aperitif' && word.spot !== 'patio' && word.spot !== 'appetizers' && word.spot !== 'wine' && word.spot !== 'dark' && word.spot !== 'fresh'
-          console.log(word.spot)
-          return word
+
+          return res.data.annotations
         })
         allIngredients.push(filteredArray[0].spot)
-      // } 
-        // } else if (res.data.annotations.length > 0) {
-        //   allIngredients.push(res.data.annotations[0].spot) 
-        // } else {
-        //   return
-        // }
 
         const ingredients = allIngredients.join(', ');
         console.log(`ingredients: ${ingredients}`);
@@ -142,9 +125,8 @@ class Recipes extends React.Component {
           params: {
             requirepictures: true,
             'allowedCourse': 'course^course-Main Dishes',
-            'allowedDiet[]': `${this.state.diet.paleo}`,
+            'allowedDiet[]': `${this.state.diet}`,
             q: `${ingredients}`,
-            'allowedAllergy[]': `${this.state.allergies.gluten}`,
             maxResult: 3,
           },
           headers: {
@@ -156,8 +138,8 @@ class Recipes extends React.Component {
             console.log(res);
             const fullRecipes = res.data.matches;
             fullRecipes.map((recipe) => {
-              let smallImage = recipe.smallImageUrls[0]
-              recipe.smallImageUrls = smallImage.split('=')[0];
+              let smallImage = recipe.imageUrlsBySize
+              recipe.smallImageUrls = smallImage[90].split('=')[0];
             })
             this.setState({
               recipes: res.data.matches,
@@ -198,7 +180,7 @@ class Recipes extends React.Component {
                 <h3>{recipe.recipeName}</h3>
                 <p className="recipeAuthor">Recipe by: {recipe.sourceDisplayName}</p>
                 <p>Ingredients:</p>
-                <ul class="ingredientsList clear">{recipe.ingredients.map((ingredient) =>{
+                <ul className="ingredientsList clear">{recipe.ingredients.map((ingredient) =>{
                   return (
                       <li>+ {ingredient}</li>
                     )

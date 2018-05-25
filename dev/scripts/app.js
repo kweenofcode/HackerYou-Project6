@@ -12,7 +12,16 @@ import LandingPage from './LandingPage';
 class App extends React.Component {
   constructor(){
     super();
+    this.state ={
+      diet: '',
+    }
+    this.getDiet = this.getDiet.bind(this);
   }
+  getDiet(dietCallback) {
+  this.setState ({
+    diet: dietCallback,
+  })
+}
     render() {
       return (
         <div>
@@ -20,9 +29,9 @@ class App extends React.Component {
             <Router>
               <main className="wrapper">
                 <a href="http://www.vqaontario.ca/Home"><img src="images/VQAlogo.png" alt="VQA Wines of Ontario Logo" className="VQAlogo"/></a>
-                <Route exact path="/" component={LandingPage} />
+                <Route exact path="/" render={(props) => <LandingPage {...props} callback={this.getDiet} />} />
                 <Route path="/recipe/:recipe_id" component={SingleRecipe} />
-                <Route exact path="/recipes" component={Recipes} />
+                <Route exact path="/recipes" render={(props) => <Recipes {...props} diet={this.state.diet} />} />
               </main>
             </Router>
           </div>
