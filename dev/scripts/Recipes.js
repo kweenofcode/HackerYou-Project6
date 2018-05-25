@@ -33,7 +33,10 @@ class Recipes extends React.Component {
   }
   // Get random wine
   getRandomize(winesArray) {
-    return winesArray[Math.floor(Math.random() * winesArray.length) + 1];
+    console.log(Math.floor((Math.random() * (winesArray.length) - 1) + 1));
+      
+    return winesArray[Math.floor((Math.random() * (winesArray.length - 1) + 1))]
+    // return Math.floor((Math.random() * winesArray.length) + 1);
   }
   async componentDidMount() {
     const diet = `${this.props.diet}`;
@@ -64,31 +67,42 @@ class Recipes extends React.Component {
       let curatingArray = [];
       // console.log(res.data.result[0].origin)
       let data = res.data.result;
-      console.log(data)
       // iterating over array of wines for details
       for (let i = 0; i < data.length; i++) {
-        if (data[i].serving_suggestion != null) {
-        const curated_dataset = {
-          alcohol_content: (data[i].alcohol_content / 100).toString() + "%",
-          name: data[i].name,
-          origin: data[i].origin,
-          secondary_category: data[i].secondary_category,
-          serving_suggestion: data[i].serving_suggestion,
-          style: data[i].style,
-          tasting_note: data[i].tasting_note,
-          varietal: data[i].varietal,
-          image_url: data[i].image_url,
-          image_thumb_url: data[i].image_url,
-          key: i
+        if ((data[i].serving_suggestion != null) && (data[i].image_url != null)) {
+          const curated_dataset = {
+            alcohol_content: (data[i].alcohol_content / 100).toString() + "%",
+            name: data[i].name,
+            origin: data[i].origin,
+            secondary_category: data[i].secondary_category,
+            serving_suggestion: data[i].serving_suggestion,
+            style: data[i].style,
+            tasting_note: data[i].tasting_note,
+            varietal: data[i].varietal,
+            image_url: data[i].image_url,
+            image_thumb_url: data[i].image_url,
+            key: i
+          }
+          curatingArray.push(curated_dataset);
+
         }
-        curatingArray.push(curated_dataset);
       }
-      }
+      console.log(curatingArray)
+      
       // This gets a produces the single random wine
-      const singleWine = this.getRandomize(curatingArray);
-      // const singleWine = curatingArray[36];
+      
+      let singleWine = this.getRandomize(curatingArray);
+      console.log(singleWine);
+      
+      while (singleWine.image_url == null || singleWine.image_url == ''){
+        console.log("reached");
+        
+        singleWine = this.getRandomize(curatingArray);
+      }
 
 
+      // const singleWine = curatingArray[37];
+      // console.log(singleWine);
       console.log(singleWine.serving_suggestion);
       // This is the Dandelion text API
       await axios({
@@ -109,21 +123,38 @@ class Recipes extends React.Component {
         // Return of promise
       }).then(async res => {
         const allIngredients = [];
+        console.log(res.data);
+        // console.log(text);
+        
         // if (res.data.annotations.length > 1) {
         const filteredArray = res.data.annotations.filter((word) => {
-          word.spot !== 'aperitif' && word.spot !== 'patio' && word.spot !== 'appetizers' && word.spot !== 'wine' && word.spot !== 'dark' && word.spot !== 'fresh'
-
-          return res.data.annotations
+          return (word.spot !== 'aperitif') && (word.spot !== 'patio') && (word.spot !== 'appetizers') && (word.spot !== 'wine') && (word.spot !== 'dark') && (word.spot !== 'fresh') && (word.spot !== 'Enjoy') && (word.spot !== 'juicy')//juicy fruits
         })
-        allIngredients.push(filteredArray[0].spot)
 
-        const ingredients = allIngredients.join(', ');
+        let ingredients;
+        if(filteredArray.length === 0){
+          ingredients = singleWine.serving_suggestion;
+        }
+        else{
+          allIngredients.push(filteredArray[0].spot)
+          ingredients = allIngredients.join(', ');
+
+        }
+      // } 
+        // } else if (res.data.annotations.length > 0) {
+        //   allIngredients.push(res.data.annotations[0].spot) 
+        // } else {
+        //   return
+        // }
+
+
         console.log(`ingredients: ${ingredients}`);
+        
         //embedded axios call
         await axios({
           url: 'https://api.yummly.com/v1/api/recipes',
           params: {
-            requirepictures: true,
+            requirePictures: true,
             'allowedCourse': 'course^course-Main Dishes',
             'allowedDiet[]': `${this.state.diet}`,
             q: `${ingredients}`,
@@ -136,10 +167,14 @@ class Recipes extends React.Component {
         })
           .then((res) => {
             console.log(res);
+            //we need to straight up map out all of the relevant data, because this piece of code will slip if smallImageUrl is not found. I've made it so that if it is not found, then we can just ignore it, but the match should probably just be botched. We could even have the maxResult be greater than 3 and filter it to be until the array length is 3 as well so in *most* cases it would be 3. Maybe a while loop and a counter would do the trick
             const fullRecipes = res.data.matches;
+            
             fullRecipes.map((recipe) => {
-              let smallImage = recipe.imageUrlsBySize
-              recipe.smallImageUrls = smallImage[90].split('=')[0];
+              // if(recipe.smallImageUrl != null){
+                let smallImage = recipe.imageUrlsBySize
+                recipe.smallImageUrls = smallImage[90].split('=')[0];
+              // }  
             })
             this.setState({
               recipes: res.data.matches,
@@ -169,15 +204,17 @@ class Recipes extends React.Component {
         </section>
 
         <section className="recipesRender">
-          <h2>Top 3 Curated Dishes</h2>
+          <h2>Top 3 Paired Dishes</h2>
           {this.state.recipes.map((recipe, i) => {
             if(recipe.rating >= 3) {
               return(
-              <div className="recipe" key={recipe.id}>
+              <div className="recipe" key={recipe.id + recipe.smallImageUrls + recipe.recipeName + recipe.sourceDisplayName}>
                 <Link to={`recipe/${recipe.id}`}>
                   <img src={recipe.smallImageUrls} alt=""/>
                 </Link>
+                <Link to={`recipe/${recipe.id}`}>
                 <h3>{recipe.recipeName}</h3>
+                </Link>
                 <p className="recipeAuthor">Recipe by: {recipe.sourceDisplayName}</p>
                 <p>Ingredients:</p>
                 <ul className="ingredientsList clear">{recipe.ingredients.map((ingredient) =>{
