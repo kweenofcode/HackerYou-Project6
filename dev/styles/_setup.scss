@@ -17,13 +17,16 @@ article,aside,details,figcaption,figure,footer,header,hgroup,nav,section,summary
     box-sizing: border-box;
     margin: 0;
 }
+.fl {
+    float: left;
+}
+.fr {
+    float: right;
+}
 img {
     max-width: 100%;
 }
 ul {
     list-style: none;
     padding: 0;
-}
-a {
-    text-decoration: none;
 }

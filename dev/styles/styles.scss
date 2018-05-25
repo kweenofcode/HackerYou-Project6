@@ -23,7 +23,7 @@ body {
     left: calc(50% - 33px)
 }
 /*██████████ LAYOUT DETAILS ██████████*/
-.landingPage, .recipesRender, .wineRender {
+.landingPage, .recipesRender, .wineRender{
     padding: 20px 20px;
 }
 .recipesRender, .wineRender {
@@ -97,16 +97,63 @@ body {
             padding-bottom: 0px;
             border-bottom: 0px;
         }
+        h3 {
+            text-align: center;
+        }
         .recipeAuthor {
             text-align: center;
             font-size: 12px;
-            padding-top: 10px;
         }
         .ingredientsList li {
             float: left;
-            width: 45%;
             margin-bottom: 5px;
             font-size: 12px;
+            background: aqua;
+            margin-right: 10px;
         }
+    }
+}
+/*██████████ RECIPE(S) RENDER COMMON STYLES ██████████*/
+/*██████████ SINGLE RECIPE RENDER ██████████*/
+.recipeRender {
+    padding: 0 20px;
+    margin: 40px 0;
+    min-height: calc(100vh - 165px);
+    h2 {
+        margin-bottom: 10px;
+    }
+    img {
+        margin:  0 auto;
+        display: block;
+    }
+    .recipeImage {
+        margin-top: 10px;
+        margin-bottom: 40px;
+    }
+    .ingredientsList li {
+        margin-bottom: 10px;
+    }
+    .recipeIngredients, .recipeDetails {
+        padding: 0 20px;
+    }
+    .recipeIngredients {
+        width: 50%;
+        border-right: $basicBorder;
+        h3 {
+            margin-bottom: 10px;
+        }
+    }
+    .recipeDetails {
+        width: 50%;
+        h3 {
+            margin-bottom: 10px;
+        }
+        p {
+            margin-bottom: 10px;
+        }
+    }
+    .recipeAttribution {
+        font-size: 12px;
+        text-align: center;
     }
 }
