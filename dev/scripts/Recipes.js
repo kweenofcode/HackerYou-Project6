@@ -201,7 +201,7 @@ class Recipes extends React.Component {
       <div className="clear">
         <section>
           {/* <Link to={"/"}> */}
-            <button onClick={this.clear}>TEST ME</button>
+            <button className="buttonReturn" onClick={this.clear}>Menu</button>
           {/* </Link> */}
           {/* <Link to={"/"}  */}
             
@@ -221,7 +221,7 @@ class Recipes extends React.Component {
         </section>
 
         <section className="recipesRender fr">
-          <h2>Top 3 Paired Dishes</h2>
+          <h2>Top <span>3 </span>Paired Dish<span>es</span></h2>
           {this.state.recipes.map((recipe, i) => {
             if(recipe.rating >= 3) {
               return(
@@ -236,8 +236,8 @@ class Recipes extends React.Component {
                 </Link>
 
                 <p className="recipeAuthor">Recipe by: {recipe.sourceDisplayName}</p>
-                <p>Ingredients:</p>
-                <ul className="ingredientsList clear">{recipe.ingredients.map((ingredient) =>{
+                <p className="dispNone">Ingredients:</p>
+                <ul className="ingredientsList clear dispNone">{recipe.ingredients.map((ingredient) =>{
                   return <Ingredient 
                     key = {ingredient.key + ingredient}
                     ingredient = {ingredient}

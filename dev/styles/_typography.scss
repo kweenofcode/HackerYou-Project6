@@ -3,19 +3,18 @@ h1, h2, h3, h4, h5, h6 {
     @include headingCopy;
     color: $primaryL;
 }
-h2 {
+h2, h3 {
     text-align: center;
 }
 h1 {
     color: $primaryL;
     font-size: 45px;
-    line-height: 38px; //TEMP
+    line-height: 38px;
     text-align: center;
     margin-bottom: 30px;
 }
 h2 {
     margin-bottom: 20px;
-    color: $primaryL;
     &:after {
         content: "";
         display: block;
