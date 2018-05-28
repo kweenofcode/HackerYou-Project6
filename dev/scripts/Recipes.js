@@ -16,6 +16,7 @@ class Recipes extends React.Component {
     this.state = {
       recipes: [],
       q: '',
+      allergies: '',
       diet: '',
       wines: [{
         alcohol_content: 0,
@@ -38,8 +39,10 @@ class Recipes extends React.Component {
   }
   async componentDidMount() {
     const diet = `${this.props.diet}`;
+    const allergies = `${this.props.allergies}`;
     this.setState ({
-      diet: diet,
+      allergies: allergies,
+      diet: diet
     })
     // LCBO axios call
     await axios({
@@ -129,6 +132,7 @@ class Recipes extends React.Component {
           params: {
             requirePictures: true,
             'allowedCourse': 'course^course-Main Dishes',
+            'allowedAllergy[]': `${this.state.allergies}`,
             'allowedDiet[]': `${this.state.diet}`,
             q: `${ingredients}`,
             maxResult: 3,
@@ -139,6 +143,8 @@ class Recipes extends React.Component {
           },
         })
           .then((res) => {
+            console.log(res);
+            
             const fullRecipes = res.data.matches;
             
             fullRecipes.map((recipe) => {
