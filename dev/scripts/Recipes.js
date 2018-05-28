@@ -105,7 +105,7 @@ class Recipes extends React.Component {
         params: {
           reqUrl: "https://api.dandelion.eu/datatxt/nex/v1",
           params: {
-            token: 'bc77fbf397184fc1b069f3085e709f0d',
+            token: '540e6dac085d4124a024fec1f838c97b',
             text: singleWine.serving_suggestion,
           },
           xmlToJSON: false

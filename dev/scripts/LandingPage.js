@@ -101,7 +101,7 @@ class LandingPage extends React.Component {
           <section className="landingPage">
               <div id="flipbook" className="landingContent">
                 <h1>Wine ON, Dine ON</h1>
-                <p className="desc">Whether it's been a long week or about to be a long weekend, you deserve to unwind. </p>
+                <p className="desc"> </p>
                 <form action="">
                   <div>
                     {this.state.diet.map((diet, i) => {
