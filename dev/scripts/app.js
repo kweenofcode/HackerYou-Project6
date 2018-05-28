@@ -19,6 +19,7 @@ class App extends React.Component {
     this.getDiet = this.getDiet.bind(this);
     this.getAllergies = this.getAllergies.bind(this);
     this.clearDietAndAllergies = this.clearDietAndAllergies.bind(this);
+    
   }
   getDiet(dietCallback) {
     this.setState ({
@@ -31,14 +32,23 @@ class App extends React.Component {
       allergies: allergyCallback
     })
   }
-  clearDietAndAllergies(emptyDiet, emptyAllergies) {
+
+  clearDietAndAllergies(dietToClear, allergyToClear){
+    console.log(dietToClear);
+    console.log(allergyToClear);
+    
+    
     this.setState({
-      diet: emptyDiet, 
-      allergies: emptyAllergies,
+      allergies: allergyToClear,
+      diet: dietToClear
     })
+
   }
 
+
     render() {
+      //move this to render in app
+      // this.props.clearDietAndAllergies();
       return (
           <div>
             <Router>
@@ -46,7 +56,8 @@ class App extends React.Component {
                 <a href="http://www.vqaontario.ca/Home"><img src="images/VQAlogo.png" alt="VQA Wines of Ontario Logo" className="VQAlogo"/></a>
                 <Route exact path="/" render={(props) => <LandingPage {...props} callback={this.getDiet} allergyCallback={this.getAllergies} />} />
                 <Route path="/recipe/:recipe_id" component={SingleRecipe} />
-                <Route exact path="/recipes" render={(props) => <Recipes {...props} clearDietAndAllergies={this.clearDietAndAllergies} diet={this.state.diet} allergies={this.state.allergies}/>} />
+                {/* Cleardiets goe to recipes */}
+              <Route exact path="/recipes" render={(props) => <Recipes {...props} clearDietAndAllergies={this.clearDietAndAllergies} diet={this.state.diet} allergies={this.state.allergies}/>} />
               </main>
             </Router>
           </div>
