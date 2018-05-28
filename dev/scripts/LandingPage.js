@@ -4,13 +4,14 @@ import {
   Route, Link, NavLink
 } from 'react-router-dom';
 
+
 class LandingPage extends React.Component {
     constructor() {
       super();
       this.state = {
         isChecked: [],
         diet: [
-            {name: 'Lacto Vegetarian',
+          { name: 'Lacto Vegetarian',
             value: '388^Lacto vegetarian',
             isChecked: false},
           { name: 'Ovo Vegetarian',
@@ -24,19 +25,56 @@ class LandingPage extends React.Component {
             isChecked: false},
           { name: 'Paleo',
             value: '403^Paleo',
-            isChecked: false},
-      ],
-        allergies: {
-          gluten: '393^Gluten-Free',
-          seafood: '398^Seafood-Free',
-          soy: '400^Soy-Free',
-          dairy: '396^Dairy-Free',
-          egg: '397^Egg-Free',
-          nut: '395^Tree Nut-Free',
-        },
+            isChecked: false}
+        ],
+        allergies: [
+        { name: 'gluten',
+          value: '393^Gluten-Free',
+          isChecked: false },
+        { name: 'seafood',
+          value: '398^Seafood-Free',
+          isChecked: false },
+        { name: 'soy',
+          value: '400^Soy-Free',
+          isChecked: false },
+        { name: 'dairy',
+          value: '396^Dairy-Free',
+          isChecked: false },
+        { name: 'egg',
+          value: '397^Egg-Free',
+          isChecked: false },
+        { name: 'nut',
+          value: '395^Tree Nut-Free',
+          isChecked: false }
+        ],
       }
+      this.handleAllergyChange = this.handleAllergyChange.bind(this);
       this.handleChange = this.handleChange.bind(this);
     }
+
+    //needs to be its separate thing unless we pass the entire checkbox array
+    handleAllergyChange(allergyName) {
+      const allergiesClone = Array.from(this.state.allergies);
+      const allergyToRemoveIndex = allergiesClone.findIndex((allergyItem) => {
+        return allergyItem.name === allergyName;
+      });
+      allergiesClone[allergyToRemoveIndex].isChecked = allergiesClone[allergyToRemoveIndex].isChecked === true ? false : true;
+      this.setState({
+        allergies: allergiesClone
+      })
+      const allergyItems = [];
+      this.state.allergies.map((allergy) => {
+        if (allergy.isChecked) {
+          allergyItems.push(allergy.value);
+        }
+      })
+      const fullAllergies = allergyItems.join(', ');
+      this.props.allergyCallback(fullAllergies);
+      console.log(`Allergies: ${fullAllergies}`);
+
+    }
+
+
     handleChange(dietName) {
       const dietsClone = Array.from(this.state.diet);
       const itemToRemoveIndex = dietsClone.findIndex((dietItem) => {
@@ -44,19 +82,19 @@ class LandingPage extends React.Component {
       });
       dietsClone[itemToRemoveIndex].isChecked = dietsClone[itemToRemoveIndex].isChecked === true ? false : true;
       this.setState({
-        diet: dietsClone
+        diet: dietsClone,
       })
-      const checkedItems = [];
+      const dietItems = [];
+      
       this.state.diet.map((diet) => {
         if(diet.isChecked) {
-          checkedItems.push(diet.value);
+          dietItems.push(diet.value);
         }
       })
-      // this.setState({
-      //   isChecked: checkedItems.join(', '),
-      // })
-      const fullDiet = checkedItems.join(', ');
+      const fullDiet = dietItems.join(', ');
       this.props.callback(fullDiet);
+      console.log(`Diet: ${fullDiet}`);
+      
     }
     render() {
     return (
@@ -69,13 +107,27 @@ class LandingPage extends React.Component {
                     {this.state.diet.map((diet, i) => {
                       return (
                         <React.Fragment>
-                          <input type="checkbox" name={diet.name} id={diet.value} value={diet.value} key={i} onChange={() => this.handleChange(diet.name)} />
+                          <input type="checkbox" name={diet.name} id={diet.value} value={diet.value} key={i + diet.name + diet.value + diet} onChange={() => this.handleChange(diet.name)} />
                           <label htmlFor={diet.value}>{diet.name}</label>
                         </React.Fragment>
                       )
                       } 
                     )}
                   </div>
+
+                  <div>
+                    {this.state.allergies.map((allergy, i) => {
+                      return (
+                        <React.Fragment>
+                          <input type="checkbox" name={allergy.name} id={allergy.value} value={allergy.value} key={i + allergy.name + allergy.value + allergy} onChange={() => this.handleAllergyChange(allergy.name)} />
+                          <label htmlFor={allergy.value}>{allergy.name}</label>
+                        </React.Fragment>
+                      )
+                    }
+                    )}
+                  </div>
+
+
                   <Link to="/recipes">Explore</Link>
                 </form>
               </div>
