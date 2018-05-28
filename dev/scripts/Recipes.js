@@ -158,10 +158,15 @@ class Recipes extends React.Component {
         this.setState({
           text: ingredients,
         })
+        this.setState({
+          allergies: '',
+          diet: '',
+        })
+        this.props.clearDietAndAllergies(`${this.state.diet}`, `${this.state.allergies}`);
       })
       this.setState({
         wines: curatingArray,
-        oneWine: singleWine
+        oneWine: singleWine,
       })
     });
   }
