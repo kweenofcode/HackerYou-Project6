@@ -62,10 +62,10 @@ class LandingPage extends React.Component {
     return (
           <section className="landingPage">
               <div className="landingContent">
-                <h1>Wine ON, Dine ON</h1>
+                <h1>Wine ON<span>Dine ON</span></h1>
                 <p className="desc">Lorem ipsum dolor sit amet consectetur, adipisicing elit. At magni voluptates ipsa nihil quae consectetur nobis, sequi vel fuga doloremque quidem quibusdam nisi praesentium dicta labore iste iusto placeat dolores neque cum? Sapiente eveniet sequi vel fuga doloremque rem vitae? Excepturi, id exercitationem nisi, soluta minima quisquam ducimus quae error, nulla beatae esse laboriosam!</p>
                 <form action="">
-                  <div>
+                  <div className="clear">
                     {this.state.diet.map((diet, i) => {
                       return (
                         <React.Fragment>

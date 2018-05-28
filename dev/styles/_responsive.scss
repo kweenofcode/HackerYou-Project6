@@ -1,0 +1,63 @@
+@media screen and (max-width:650px) {
+    .landingPage {
+        .landingContent {
+            padding: 0 20px;
+            form {
+                div {
+                    margin-bottom: 20px;
+                    p {
+                        text-align: center;
+                        margin-block-end: 20px;
+                    }
+                }
+                a {
+                    width: 30%;
+                }
+            }
+        }
+    }
+}
+@media screen and (max-width:550px) {
+    .landingPage {
+        .landingContent {
+            form {
+                label {
+                    margin: 0 0 10px 0;
+                    width: calc(50% - 10px);
+                    background: $secondaryD;
+                    float: left;
+                    padding: 5px  0 5px 5px;
+                    color: $white;
+                    &:hover {
+                        background: $secondaryL;
+                    }
+                    &:nth-of-type(2n + 1) {
+                        margin-right: 10px;
+                    }
+                }
+                input[type=checkbox] {
+                    & + label:before {
+                        background: $secondaryD;
+                    }
+                    &:hover + label:before {
+                        background: $secondaryL;
+                      }
+                }
+                a {
+                    width: 70%;
+                }
+            }
+        }
+    }
+}
+@media screen and (max-width:450px) {
+    .landingPage {
+        .landingContent {
+            form {
+                a {
+                    width: 70%;
+                }
+            }
+        }
+    }
+}
