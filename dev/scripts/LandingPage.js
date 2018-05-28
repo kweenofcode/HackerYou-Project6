@@ -77,7 +77,7 @@ class LandingPage extends React.Component {
                       } 
                     )}
                   </div>
-                  <Link to="/recipes"><button>Explore</button></Link>
+                  <Link to="/recipes">Explore</Link>
                 </form>
               </div>
           </section>
