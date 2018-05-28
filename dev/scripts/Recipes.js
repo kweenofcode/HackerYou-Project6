@@ -201,7 +201,7 @@ class Recipes extends React.Component {
       <div className="clear">
         <section>
           {/* <Link to={"/"}> */}
-            <button onClick={this.clear}>TEST ME</button>
+            <button className="buttonReturn" onClick={this.clear}>Menu</button>
           {/* </Link> */}
           {/* <Link to={"/"}  */}
             
