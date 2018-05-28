@@ -143,7 +143,6 @@ class Recipes extends React.Component {
           },
         })
           .then((res) => {
-            console.log(res);
             
             const fullRecipes = res.data.matches;
             

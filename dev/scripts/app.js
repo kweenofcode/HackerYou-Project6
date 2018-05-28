@@ -23,12 +23,16 @@ class App extends React.Component {
     this.setState ({
       diet: dietCallback,
     })
+    console.log(this.state.diet);
+    
   }
   //yikes
   getAllergies(allergyCallback) {
     this.setState({
       allergies: allergyCallback
     })
+    console.log(this.state.allergies);
+    
   }
 
 
