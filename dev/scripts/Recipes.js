@@ -32,12 +32,31 @@ class Recipes extends React.Component {
       }],
       oneWine: ''
     }
+    // push to Recipes
+    // this.clearDietAndAllergies = this.clearDietAndAllergies.bind(this);
+    this.clear = this.clear.bind(this);
   }
+
+  //push this to Recipes
+  clear() {
+    this.setState({
+      diet: '',
+      allergies: '',
+    }, 
+     () => {
+       this.props.clearDietAndAllergies(`${this.state.diet}`, `${this.state.allergies}`)
+       this.props.history.push('/');      
+     }
+   )
+    // console.log(this.state.diet);
+  }
+
   // Get random wine
   getRandomize(winesArray) {
     return winesArray[Math.floor((Math.random() * (winesArray.length - 1) + 1))]
   }
   async componentDidMount() {
+    
     const diet = `${this.props.diet}`;
     const allergies = `${this.props.allergies}`;
     this.setState ({
@@ -143,7 +162,6 @@ class Recipes extends React.Component {
           },
         })
           .then((res) => {
-            console.log(res);
             
             const fullRecipes = res.data.matches;
             
@@ -155,25 +173,40 @@ class Recipes extends React.Component {
               recipes: res.data.matches,
             })
           })
+          
         this.setState({
           text: ingredients,
         })
-        this.setState({
-          allergies: '',
-          diet: '',
-        })
-        this.props.clearDietAndAllergies(`${this.state.diet}`, `${this.state.allergies}`);
+        // this goes to app too?
+        // this.setState({
+        //   allergies: '',
+        //   diet: '',
+        // })
+        
       })
       this.setState({
         wines: curatingArray,
         oneWine: singleWine,
       })
+      
     });
   }
+
+
+
+
+  
   render() {
     return (
       <div className="clear">
-
+        <section>
+          {/* <Link to={"/"}> */}
+            <button onClick={this.clear}>TEST ME</button>
+          {/* </Link> */}
+          {/* <Link to={"/"}  */}
+            
+          {/* </Link> */}
+        </section>
         <section className="wineRender fl">
           <h2>VQA Wine Spotlight</h2>
           <Wine 
