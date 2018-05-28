@@ -1,63 +1,74 @@
-@media screen and (max-width:650px) {
-    .landingPage {
-        .landingContent {
-            padding: 0 20px;
-            form {
-                div {
-                    margin-bottom: 20px;
-                    p {
-                        text-align: center;
-                        margin-block-end: 20px;
-                    }
-                }
-                a {
-                    width: 30%;
-                }
-            }
-        }
+@media screen and (max-height:760px) {
+    .wrapper {
+        margin: 40px 0 0 0;
+        border-bottom: 0px;
     }
-}
-@media screen and (max-width:550px) {
     .landingPage {
+        height: auto;
         .landingContent {
-            form {
-                label {
-                    margin: 0 0 10px 0;
-                    width: calc(50% - 10px);
-                    background: $secondaryD;
-                    float: left;
-                    padding: 5px  0 5px 5px;
-                    color: $white;
-                    &:hover {
-                        background: $secondaryL;
-                    }
-                    &:nth-of-type(2n + 1) {
-                        margin-right: 10px;
-                    }
-                }
-                input[type=checkbox] {
-                    & + label:before {
-                        background: $secondaryD;
-                    }
-                    &:hover + label:before {
-                        background: $secondaryL;
-                      }
-                }
-                a {
-                    width: 70%;
-                }
-            }
+            position: relative;
+            top: 0%;
+            left: 0%;
+            transform: translate(0%,0%);
+            margin-top: 25px;
         }
     }
 }
 @media screen and (max-width:450px) {
+    .wrapper {
+        margin: 40px 0 0 0;
+        border-bottom: 0px;
+    }
+    .landingPage {
+        height: auto;
+        .landingContent {
+            position: relative;
+            top: 0%;
+            left: 0%;
+            transform: translate(0%,0%);
+            margin-top: 25px;
+        }
+    }
+    h1 {
+        font-size: 55px;
+        line-height: 48px;
+        span {
+            width: 100%;
+            display: block;
+            margin-top: 10px;
+        }
+    }
+    form {
+        label {
+            width: calc(50% - 5px);
+        }
+        a {
+            width: calc(50% - 5px);
+        }
+}
+@media screen and (max-width:350px) {
     .landingPage {
         .landingContent {
-            form {
-                a {
-                    width: 70%;
-                }
+            margin-top: 30px;
+            .desc {
+                &:after {
+                    width: 100%;
+                    }
             }
+        }
+    }
+    h1 {
+        font-size: 38px;
+        line-height: 32px;
+    }
+    form {
+        label {
+            width: 100%;
+            margin: 0 0 5px 0;
+          }
+          a {
+              width: 100%;
+          }
         }
     }
 }

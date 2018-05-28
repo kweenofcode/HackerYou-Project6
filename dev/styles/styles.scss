@@ -20,7 +20,7 @@ body {
     margin-bottom: 40px;
     position: absolute;
     top: -35px;
-    left: calc(50% - 33px)
+    left: calc(50% - 33px);
 }
 //██████████ LAYOUT DETAILS ██████████
 .landingPage, .recipesRender, .wineRender{
@@ -38,6 +38,7 @@ body {
     position: relative;
     .landingContent {
         width: 100%;
+        padding: 0 20px;
         position: absolute;
         top: 50%;
         left: 50%;
@@ -54,25 +55,12 @@ body {
                 }
         }
         form {
+            font-size: 12px;
             div {
-                margin-bottom: 20px;
+                margin-bottom: 10px;
                 p {
-                    text-align: center;
-                    margin-block-end: 20px;
-                }
-            }
-            a {
-                margin: 0 auto;
-                background: $secondaryD;
-                border: none;
-                padding: 5px 0px;
-                display: block;
-                margin: 0 auto;
-                text-align: center;
-                width: 20%;
-                color: $white;
-                &:hover {
-                    background: $secondaryL;
+                    text-align: left;
+                    margin-bottom: 5px;
                 }
             }
         }

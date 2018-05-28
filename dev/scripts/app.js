@@ -38,7 +38,7 @@ class App extends React.Component {
           <div>
             <Router>
               <main className="wrapper">
-                <a href="http://www.vqaontario.ca/Home"><img src="images/VQAlogo.png" alt="VQA Wines of Ontario Logo" className="VQAlogo"/></a>
+                <a href="http://www.vqaontario.ca/Home"><img src="../images/VQAlogo.png" alt="VQA Wines of Ontario Logo" className="VQAlogo"/></a>
                 <Route exact path="/" render={(props) => <LandingPage {...props} callback={this.getDiet} allergyCallback={this.getAllergies} />} />
                 <Route path="/recipe/:recipe_id" component={SingleRecipe} />
                 <Route exact path="/recipes" render={(props) => <Recipes {...props} diet={this.state.diet} allergies={this.state.allergies}/>} />
