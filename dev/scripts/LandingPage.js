@@ -4,6 +4,7 @@ import {
   Route, Link, NavLink
 } from 'react-router-dom';
 
+
 class LandingPage extends React.Component {
     constructor() {
       super();
@@ -76,7 +77,7 @@ class LandingPage extends React.Component {
                       } 
                     )}
                   </div>
-                  <button><Link to="/recipes">Explore</Link></button>
+                  <Link to="/recipes"><button>Explore</button></Link>
                 </form>
               </div>
           </section>

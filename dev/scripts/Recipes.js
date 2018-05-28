@@ -4,10 +4,10 @@ import {
   BrowserRouter as Router,
   Route, Link, NavLink
 } from 'react-router-dom';
+import regeneratorRuntime from 'regenerator-runtime';
 import SingleRecipe from './SingleRecipe';
 import Wine from './Wine';
 import Qs from 'qs';
-import regeneratorRuntime from 'regenerator-runtime';
 import Ingredient from './Ingredient';
 
 class Recipes extends React.Component {
@@ -34,10 +34,7 @@ class Recipes extends React.Component {
   }
   // Get random wine
   getRandomize(winesArray) {
-    console.log(Math.floor((Math.random() * (winesArray.length) - 1) + 1));
-      
     return winesArray[Math.floor((Math.random() * (winesArray.length - 1) + 1))]
-    // return Math.floor((Math.random() * winesArray.length) + 1);
   }
   async componentDidMount() {
     const diet = `${this.props.diet}`;
@@ -64,9 +61,7 @@ class Recipes extends React.Component {
       }
       // Return of async promise
     }).then(async res => {
-      console.log(res);
       let curatingArray = [];
-      // console.log(res.data.result[0].origin)
       let data = res.data.result;
       // iterating over array of wines for details
       for (let i = 0; i < data.length; i++) {
@@ -88,21 +83,14 @@ class Recipes extends React.Component {
 
         }
       }
-      console.log(curatingArray)
-      
       // This gets a produces the single random wine
       
       let singleWine = this.getRandomize(curatingArray);
-      console.log(singleWine);
       
       while (singleWine.image_url == null || singleWine.image_url == ''){
-        console.log("reached");
-        
         singleWine = this.getRandomize(curatingArray);
       }
 
-
-      console.log(singleWine.serving_suggestion);
       // This is the Dandelion text API
       await axios({
         method: "GET",
@@ -122,10 +110,6 @@ class Recipes extends React.Component {
         // Return of promise
       }).then(async res => {
         const allIngredients = [];
-        console.log(res.data);
-        // console.log(text);
-        
-        // if (res.data.annotations.length > 1) {
         const filteredArray = res.data.annotations.filter((word) => {
           return (word.spot !== 'aperitif') && (word.spot !== 'patio') && (word.spot !== 'appetizers') && (word.spot !== 'wine') && (word.spot !== 'dark') && (word.spot !== 'fresh') && (word.spot !== 'Enjoy') && (word.spot !== 'juicy')//juicy fruits
         })
@@ -137,11 +121,8 @@ class Recipes extends React.Component {
         else{
           allIngredients.push(filteredArray[0].spot)
           ingredients = allIngredients.join(', ');
-
         }
 
-        console.log(`ingredients: ${ingredients}`);
-        
         //embedded axios call
         await axios({
           url: 'https://api.yummly.com/v1/api/recipes',
@@ -158,14 +139,11 @@ class Recipes extends React.Component {
           },
         })
           .then((res) => {
-            console.log(res);
             const fullRecipes = res.data.matches;
             
             fullRecipes.map((recipe) => {
-              // if(recipe.smallImageUrl != null){
                 let smallImage = recipe.imageUrlsBySize
                 recipe.smallImageUrls = smallImage[90].split('=')[0];
-              // }  
             })
             this.setState({
               recipes: res.data.matches,
