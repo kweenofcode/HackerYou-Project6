@@ -56,7 +56,7 @@ class SingleRecipe extends React.Component {
           </div>
           <div class="fr recipeDetails">
             <h3>Details</h3>
-            <p>+ Time requirement: {this.state.recipe.totalTime}  </p>
+            <p>+ Total Time: {this.state.recipe.totalTime}  </p>
             <p>+ Recipe makes {this.state.recipe.yield}</p>
             <p className="recipeAuthor">+ See full recipe by <a href={this.state.source.sourceRecipeUrl}>{this.state.source.sourceDisplayName}</a></p>
             
@@ -68,15 +68,3 @@ class SingleRecipe extends React.Component {
 }
 
 export default SingleRecipe;
-
-
-
-
-{/*<ul>
-  <li>{this.state.flavors.Bitter} Bitter</li>
-  <li>{this.state.flavors.Meaty} Meaty</li>
-  <li>{this.state.flavors.Piquant} Piquant</li>
-  <li>{this.state.flavors.Salty} Salty</li>
-  <li>{this.state.flavors.Sour} Sour</li>
-  <li>{this.state.flavors.Sweet} Sweet</li>
-</ul>*/}

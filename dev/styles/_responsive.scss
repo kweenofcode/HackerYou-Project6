@@ -14,10 +14,48 @@
         }
     }
 }
+@media screen and (max-width:670px) {
+    .wrapper {
+        border-bottom: 0px;
+    }
+    h2 {
+        span {
+            &:first-of-type {
+                display: none;
+            }
+        }
+    }
+    .recipesRender {
+        .recipe {
+            &:nth-of-type(n + 3) {
+                display: none;
+            }
+            .ingredientsList li {
+                float: left;
+                margin-bottom: 5px;
+                font-size: 12px;
+                margin-right: 10px;
+                width: 100%;
+            }
+        }
+    }
+}
+@media screen and (max-width:560px) {
+    .dispNone {
+        display: none;
+    }
+    h3 {
+        font-size: 22px;
+    }
+    .recipesRender {
+        .recipeImageContainer {
+            max-height: 150px;
+        }
+    }
+}
 @media screen and (max-width:450px) {
     .wrapper {
         margin: 40px 0 0 0;
-        border-bottom: 0px;
     }
     .landingPage {
         height: auto;
@@ -45,6 +83,56 @@
         a {
             width: calc(50% - 5px);
         }
+    }
+    //██████████ recipes ██████████
+    .recipesRender, .wineRender {
+        width: 100%;
+        margin: 0px 0;
+    }
+    .wineRender {
+        margin-top: 40px;
+        border-bottom: $basicBorder;
+    }
+    .recipesRender {
+        h2 {
+            span {
+                display: none;
+            }
+        }
+        border: 0px;
+        .recipe {
+            border: 0;
+            margin-bottom: 0px;
+            &:nth-of-type(n + 2) {
+                display: none;
+            }
+        }
+    }
+    //██████████ recipe ██████████
+    .recipeRender {
+        .recipeImage {
+            margin-bottom: 10px;
+        }
+        .recipeIngredients {
+            width: 100%;
+            border-right: 0px;
+            border-bottom: $basicBorder;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            h3 {
+                margin-bottom: 10px;
+            }
+        }
+        .recipeDetails {
+            width: 100%;
+            h3 {
+                margin-bottom: 10px;
+            }
+            p {
+                margin-bottom: 10px;
+            }
+        }
+    }
 }
 @media screen and (max-width:350px) {
     .landingPage {
@@ -66,9 +154,12 @@
             width: 100%;
             margin: 0 0 5px 0;
           }
-          a {
+        a {
               width: 100%;
-          }
         }
+    }
+    //██████████ recipes ██████████
+    h3 {
+        font-size: 20px;
     }
 }

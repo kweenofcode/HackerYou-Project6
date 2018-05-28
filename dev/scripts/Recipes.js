@@ -105,7 +105,7 @@ class Recipes extends React.Component {
         params: {
           reqUrl: "https://api.dandelion.eu/datatxt/nex/v1",
           params: {
-            token: 'bc77fbf397184fc1b069f3085e709f0d',
+            token: '540e6dac085d4124a024fec1f838c97b',
             text: singleWine.serving_suggestion,
           },
           xmlToJSON: false
@@ -158,10 +158,15 @@ class Recipes extends React.Component {
         this.setState({
           text: ingredients,
         })
+        this.setState({
+          allergies: '',
+          diet: '',
+        })
+        this.props.clearDietAndAllergies(`${this.state.diet}`, `${this.state.allergies}`);
       })
       this.setState({
         wines: curatingArray,
-        oneWine: singleWine
+        oneWine: singleWine,
       })
     });
   }
@@ -183,7 +188,7 @@ class Recipes extends React.Component {
         </section>
 
         <section className="recipesRender fr">
-          <h2>Top 3 Paired Dishes</h2>
+          <h2>Top <span>3 </span>Paired Dish<span>es</span></h2>
           {this.state.recipes.map((recipe, i) => {
             if(recipe.rating >= 3) {
               return(
@@ -198,8 +203,8 @@ class Recipes extends React.Component {
                 </Link>
 
                 <p className="recipeAuthor">Recipe by: {recipe.sourceDisplayName}</p>
-                <p>Ingredients:</p>
-                <ul className="ingredientsList clear">{recipe.ingredients.map((ingredient) =>{
+                <p className="dispNone">Ingredients:</p>
+                <ul className="ingredientsList clear dispNone">{recipe.ingredients.map((ingredient) =>{
                   return <Ingredient 
                     key = {ingredient.key + ingredient}
                     ingredient = {ingredient}
