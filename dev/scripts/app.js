@@ -5,21 +5,10 @@ import Recipes from './Recipes';
 import SingleRecipe from './SingleRecipe';
 import Text from './Text.js';
 import {
-<<<<<<< HEAD
-  Router,
-  Route, Link, NavLink, Switch, Redirect
-} from 'react-router-dom';
-import LandingPage from './LandingPage';
-import createHistory from 'history/createBrowserHistory';
-
-const history = createHistory()
-=======
   BrowserRouter as Router,
   Route, Link, NavLink, Switch
 } from 'react-router-dom';
 import LandingPage from './LandingPage';
-import {TransitionGroup, CSSTransition} from 'react-transition-group';
->>>>>>> a2667fbd3884eb4fd07ab4069f88633a71411b3e
 
 class App extends React.Component {
   constructor(){

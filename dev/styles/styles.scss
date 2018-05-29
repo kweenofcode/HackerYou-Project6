@@ -199,7 +199,15 @@ body {
 }
 .fade-enter.fade-enter-active {
     opacity: 1;
-    transition: opacity 1000ms ease-in;
+    transition: opacity 5000ms ease-in;
+}
+.fade-exit {
+    opacity: 0;
+    z-index: 1;
+}
+.fade-exit.fade-exit-active {
+    opacity: 1;
+    transition: opacity 5000ms ease-in;
 }
 //██████████ RESPONSIVE ██████████
 @import "responsive";
