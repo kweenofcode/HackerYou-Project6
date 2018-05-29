@@ -5,6 +5,7 @@ import Recipes from './Recipes';
 import SingleRecipe from './SingleRecipe';
 import Text from './Text.js';
 import {
+<<<<<<< HEAD
   Router,
   Route, Link, NavLink, Switch, Redirect
 } from 'react-router-dom';
@@ -12,6 +13,13 @@ import LandingPage from './LandingPage';
 import createHistory from 'history/createBrowserHistory';
 
 const history = createHistory()
+=======
+  BrowserRouter as Router,
+  Route, Link, NavLink, Switch
+} from 'react-router-dom';
+import LandingPage from './LandingPage';
+import {TransitionGroup, CSSTransition} from 'react-transition-group';
+>>>>>>> a2667fbd3884eb4fd07ab4069f88633a71411b3e
 
 class App extends React.Component {
   constructor(){
@@ -55,26 +63,22 @@ class App extends React.Component {
       // this.props.clearDietAndAllergies();
       return (
           <div>
-            <Router history={history}>
-            <main className="wrapper">
-            <a href="http://www.vqaontario.ca/Home"><img src="../images/VQAlogo.png" alt="VQA Wines of Ontario Logo" className="VQAlogo" /></a>
-            <Route render={({ location }) => (
-              <TransitionGroup>
-                <CSSTransition
-                  key={location.key}
-                  timeout={500}
-                  classNames='fade'
-                >
+            <Router>
+              <main className="wrapper">
+                <a href="http://www.vqaontario.ca/Home"><img src="../images/VQAlogo.png" alt="VQA Wines of Ontario Logo" className="VQAlogo"/></a>
+                <Route render={({location}) => ( 
+                <TransitionGroup>
+                  <CSSTransition classNames="fade" key={location.key} timeout={500}>
                     <Switch location={location}>
-                      <Route exact path="/" render={(props) => <LandingPage {...props} callback={this.getDiet} allergyCallback={this.getAllergies} />} />
+                      <Route exact path="/" render={(props) => <LandingPage {...props} callback={this.getDiet} allergyCallback= {this.getAllergies} />} />
                       <Route path="/recipe/:recipe_id" component={SingleRecipe} />
-                      {/* Cleardiets goes to recipes */}
-                      <Route exact path="/recipes" render={(props) => <Recipes {...props} clearDietAndAllergies={this.clearDietAndAllergies} diet={this.state.diet} allergies={this.state.allergies} />} />
+                  {/* Cleardiets goe to recipes */}
+                      <Route exact path="/recipes" render={(props) => <Recipes {...props} clearDietAndAllergies={this.clearDietAndAllergies}   diet={this.state.diet} allergies={this.state.allergies}/>} />
                     </Switch>
-                </CSSTransition>
-              </TransitionGroup>
-            )} />
-            </main>
+                  </CSSTransition>
+                </TransitionGroup>
+                )}/>
+              </main>
             </Router>
           </div>
       )
