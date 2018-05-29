@@ -35,6 +35,10 @@ class Recipes extends React.Component {
     // push to Recipes
     // this.clearDietAndAllergies = this.clearDietAndAllergies.bind(this);
     this.clear = this.clear.bind(this);
+    this.tripleAxios = this.tripleAxios.bind(this);
+    this.wineAxios = this.wineAxios.bind(this);
+    this.dandelionAxios = this.dandelionAxios.bind(this);
+    this.yummlyAxios = this.yummlyAxios.bind(this);
   }
 
   //push this to Recipes
@@ -55,14 +59,9 @@ class Recipes extends React.Component {
   getRandomize(winesArray) {
     return winesArray[Math.floor((Math.random() * (winesArray.length - 1) + 1))]
   }
-  async componentDidMount() {
-    
-    const diet = `${this.props.diet}`;
-    const allergies = `${this.props.allergies}`;
-    this.setState ({
-      allergies: allergies,
-      diet: diet
-    })
+
+
+  async wineAxios(){
     // LCBO axios call
     await axios({
       method: "GET",
@@ -87,7 +86,9 @@ class Recipes extends React.Component {
       let data = res.data.result;
       // iterating over array of wines for details
       for (let i = 0; i < data.length; i++) {
-        if ((data[i].serving_suggestion != null) && (data[i].image_url != null)) {
+        console.log(data[i].name);
+        
+        if ((data[i].serving_suggestion != null) && (data[i].image_url != null) && (data[i].name !== "Sandbanks Dunes White VQA")) {
           const curated_dataset = {
             alcohol_content: (data[i].alcohol_content / 100).toString() + "%",
             name: data[i].name,
@@ -105,91 +106,122 @@ class Recipes extends React.Component {
 
         }
       }
+      // console.log(curatingArray);
+
       // This gets a produces the single random wine
-      
       let singleWine = this.getRandomize(curatingArray);
-      
-      while (singleWine.image_url == null || singleWine.image_url == ''){
+
+      while (singleWine.image_url == null || singleWine.image_url == '') {
         singleWine = this.getRandomize(curatingArray);
       }
-
-      // This is the Dandelion text API
-      await axios({
-        method: "GET",
-        url: "http://proxy.hackeryou.com",
-        dataResponse: "json",
-        paramsSerializer: function (params) {
-          return Qs.stringify(params, { arrayFormat: "brackets" });
-        },
-        params: {
-          reqUrl: "https://api.dandelion.eu/datatxt/nex/v1",
-          params: {
-            token: '540e6dac085d4124a024fec1f838c97b',
-            text: singleWine.serving_suggestion,
-          },
-          xmlToJSON: false
-        }  
-        // Return of promise
-      }).then(async res => {
-        const allIngredients = [];
-        const filteredArray = res.data.annotations.filter((word) => {
-          return (word.spot !== 'aperitif') && (word.spot !== 'patio') && (word.spot !== 'appetizers') && (word.spot !== 'wine') && (word.spot !== 'dark') && (word.spot !== 'fresh') && (word.spot !== 'Enjoy') && (word.spot !== 'juicy')//juicy fruits
-        })
-
-        let ingredients;
-        if(filteredArray.length === 0){
-          ingredients = singleWine.serving_suggestion;
-        }
-        else{
-          allIngredients.push(filteredArray[0].spot)
-          ingredients = allIngredients.join(', ');
-        }
-
-        //embedded axios call
-        await axios({
-          url: 'https://api.yummly.com/v1/api/recipes',
-          params: {
-            requirePictures: true,
-            'allowedCourse': 'course^course-Main Dishes',
-            'allowedAllergy[]': `${this.state.allergies}`,
-            'allowedDiet[]': `${this.state.diet}`,
-            q: `${ingredients}`,
-            maxResult: 3,
-          },
-          headers: {
-            'X-Yummly-App-ID': "dfbe7dff",
-            'X-Yummly-App-Key': '2bccb2cb18b4186352c9c884a2cff49a',
-          },
-        })
-          .then((res) => {
-            
-            const fullRecipes = res.data.matches;
-            
-            fullRecipes.map((recipe) => {
-                let smallImage = recipe.imageUrlsBySize
-                recipe.smallImageUrls = smallImage[90].split('=')[0];
-            })
-            this.setState({
-              recipes: res.data.matches,
-            })
-          })
-          
-        this.setState({
-          text: ingredients,
-        })
-        // this goes to app too?
-        // this.setState({
-        //   allergies: '',
-        //   diet: '',
-        // })
-        
-      })
       this.setState({
         wines: curatingArray,
         oneWine: singleWine,
       })
+    })
+  }
+  async dandelionAxios(){
+    // This is the Dandelion text API
+    console.log(this.state.oneWine.serving_suggestion);
+
+    await axios({
+      method: "GET",
+      url: "http://proxy.hackeryou.com",
+      dataResponse: "json",
+      paramsSerializer: function (params) {
+        return Qs.stringify(params, { arrayFormat: "brackets" });
+      },
+
       
-    });
+      params: {
+        reqUrl: "https://api.dandelion.eu/datatxt/nex/v1",
+        params: {
+          token: '540e6dac085d4124a024fec1f838c97b',
+          text: this.state.oneWine.serving_suggestion,
+        },
+        xmlToJSON: false
+      }
+      // Return of promise
+    }).then(async res => {
+      const allIngredients = [];
+      const filteredArray = res.data.annotations.filter((word) => {
+        return (word.spot !== 'aperitif') && (word.spot !== 'patio') && (word.spot !== 'appetizers') && (word.spot !== 'wine') && (word.spot !== 'dark') && (word.spot !== 'fresh') && (word.spot !== 'Enjoy') && (word.spot !== 'juicy')//juicy fruits
+      })
+
+      let ingredients;
+      if (filteredArray.length === 0) {
+        ingredients = this.state.oneWine.serving_suggestion;
+      }
+      else {
+        allIngredients.push(filteredArray[0].spot)
+        ingredients = allIngredients.join(', ');
+      }
+      this.setState({
+        text: ingredients,
+      })
+    })
+  }
+
+  async yummlyAxios(){
+    //embedded axios call
+    await axios({
+      url: 'https://api.yummly.com/v1/api/recipes',
+      params: {
+        requirePictures: true,
+        'allowedCourse': 'course^course-Main Dishes',
+        'allowedAllergy[]': `${this.state.allergies}`,
+        'allowedDiet[]': `${this.state.diet}`,
+        q: `${this.state.text}`,
+        maxResult: 3,
+      },
+      headers: {
+        'X-Yummly-App-ID': "dfbe7dff",
+        'X-Yummly-App-Key': '2bccb2cb18b4186352c9c884a2cff49a',
+      },
+    })
+      .then((res) => {
+        console.log(res);
+        
+        const fullRecipes = res.data.matches;
+
+        fullRecipes.map((recipe) => {
+          let smallImage = recipe.imageUrlsBySize
+          recipe.smallImageUrls = smallImage[90].split('=')[0];
+        })
+        this.setState({
+          recipes: res.data.matches,
+        })
+      }, (err) => {
+        console.log(err);
+        
+      })
+  }
+
+
+  async tripleAxios() {
+    
+    
+    await this.wineAxios();
+    await this.dandelionAxios();
+    await this.yummlyAxios();
+ 
+
+  }
+
+  async componentDidMount() {
+    await this.tripleAxios();
+    const diet = `${this.props.diet}`;
+    const allergies = `${this.props.allergies}`;
+
+   
+    console.log("mounted");
+
+    this.setState({
+      allergies: allergies,
+      diet: diet
+    })
+
+    
   }
 
 
@@ -200,12 +232,9 @@ class Recipes extends React.Component {
     return (
       <div className="clear">
         <section>
-          {/* <Link to={"/"}> */}
-            <button className="navButton buttonReturn" onClick={this.clear}>Menu</button>
-          {/* </Link> */}
-          {/* <Link to={"/"}  */}
-            
-          {/* </Link> */}
+          <button className="buttonReturn" onClick={this.clear}>Menu</button>
+          <button className="buttonNewWine" onClick={this.tripleAxios}>Crap wine?</button>
+          <button className="navButton buttonReturn" onClick={this.clear}>Menu</button>
         </section>
         <section className="wineRender fl">
           <h2>VQA Wine Spotlight</h2>
