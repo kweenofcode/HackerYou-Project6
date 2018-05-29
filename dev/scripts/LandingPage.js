@@ -101,7 +101,7 @@ class LandingPage extends React.Component {
           <section className="landingPage">
               <div className="landingContent">
                 <h1>Wine ON <span>Dine ON</span></h1>
-                <p className="desc">Whether it's been a long week or about to be a long weekend, you deserve to unwind. </p>
+                <p className="desc">Whether it's been a long week or about to be a long weekend, you deserve to unwind. Using a highly scientific algorithm Wine ON, Dine ON pairs the finest VQA wines with complementary recipes. So whether it's a special occasion or just another Friday night with the cats, Wine On Dine On has you covered.</p>
                 <form action="">
                   <div className="clear">
                     <p>Select dietary-restrictions:</p>
@@ -129,6 +129,7 @@ class LandingPage extends React.Component {
                   </div>
                   <Link to="/recipes">Explore</Link>
                 </form>
+                <p>&copy; 2018 Becky Pollard, Michael Yiu and Ky Capstick</p>
               </div>
           </section>
         )

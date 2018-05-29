@@ -1,4 +1,5 @@
 import React from 'react';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import ReactDOM from 'react-dom';
 import Recipes from './Recipes';
 import SingleRecipe from './SingleRecipe';
@@ -8,7 +9,6 @@ import {
   Route, Link, NavLink, Switch
 } from 'react-router-dom';
 import LandingPage from './LandingPage';
-import {TransitionGroup, CSSTransition} from 'react-transition-group';
 
 class App extends React.Component {
   constructor(){
