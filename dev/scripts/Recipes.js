@@ -30,6 +30,7 @@ class Recipes extends React.Component {
         image_thumb_url: '',
         style: ''
       }],
+      isLoading: true,
       oneWine: ''
     }
     // push to Recipes
@@ -218,7 +219,8 @@ class Recipes extends React.Component {
 
     this.setState({
       allergies: allergies,
-      diet: diet
+      diet: diet,
+      isLoading: false
     })
 
     
@@ -230,11 +232,12 @@ class Recipes extends React.Component {
   
   render() {
     return (
-      <div className="clear">
+      <div>
+      {this.state.isLoading === true ? <div className="loading"><img className="spin" src="../images/loading.png" alt="Page loading..." /></div> :
+      <div className="clear recipesRenders">
         <section>
-          <button className="buttonReturn" onClick={this.clear}>Menu</button>
-          <button className="buttonNewWine" onClick={this.tripleAxios}>Crap wine?</button>
-          <button className="navButton buttonReturn" onClick={this.clear}>Menu</button>
+          <button className="navButton reWineButton" onClick={this.tripleAxios}>New Wine</button>
+          <button className="navButton menuButton" onClick={this.clear}>Menu</button>
         </section>
         <section className="wineRender fl">
           <h2>VQA Wine Spotlight</h2>
@@ -278,6 +281,8 @@ class Recipes extends React.Component {
             }
           })}
         </section>
+        </div>
+      }
       </div>
     )
   }

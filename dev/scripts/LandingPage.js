@@ -129,7 +129,7 @@ class LandingPage extends React.Component {
                   </div>
                   <Link to="/recipes">Explore</Link>
                 </form>
-                <p>&copy; 2018 Becky Pollard, Michael Yiu and Ky Capstick</p>
+                <p className="credit">&copy; 2018 Becky Pollard, Michael Yiu and Ky Capstick</p>
               </div>
           </section>
         )
