@@ -34,7 +34,6 @@ class Recipes extends React.Component {
       oneWine: ''
     }
     // push to Recipes
-    // this.clearDietAndAllergies = this.clearDietAndAllergies.bind(this);
     this.clear = this.clear.bind(this);
     this.tripleAxios = this.tripleAxios.bind(this);
     this.wineAxios = this.wineAxios.bind(this);
@@ -53,14 +52,12 @@ class Recipes extends React.Component {
        this.props.history.push('/');      
      }
    )
-    // console.log(this.state.diet);
   }
 
   // Get random wine
   getRandomize(winesArray) {
     return winesArray[Math.floor((Math.random() * (winesArray.length - 1) + 1))]
   }
-
 
   async wineAxios(){
     // LCBO axios call
@@ -87,8 +84,6 @@ class Recipes extends React.Component {
       let data = res.data.result;
       // iterating over array of wines for details
       for (let i = 0; i < data.length; i++) {
-        console.log(data[i].name);
-        
         if ((data[i].serving_suggestion != null) && (data[i].image_url != null) && (data[i].name !== "Sandbanks Dunes White VQA")) {
           const curated_dataset = {
             alcohol_content: (data[i].alcohol_content / 100).toString() + "%",
@@ -121,10 +116,9 @@ class Recipes extends React.Component {
       })
     })
   }
+
   async dandelionAxios(){
     // This is the Dandelion text API
-    console.log(this.state.oneWine.serving_suggestion);
-
     await axios({
       method: "GET",
       url: "http://proxy.hackeryou.com",
@@ -132,8 +126,6 @@ class Recipes extends React.Component {
       paramsSerializer: function (params) {
         return Qs.stringify(params, { arrayFormat: "brackets" });
       },
-
-      
       params: {
         reqUrl: "https://api.dandelion.eu/datatxt/nex/v1",
         params: {
@@ -181,10 +173,7 @@ class Recipes extends React.Component {
       },
     })
       .then((res) => {
-        console.log(res);
-        
         const fullRecipes = res.data.matches;
-
         fullRecipes.map((recipe) => {
           let smallImage = recipe.imageUrlsBySize
           recipe.smallImageUrls = smallImage[90].split('=')[0];
@@ -192,21 +181,13 @@ class Recipes extends React.Component {
         this.setState({
           recipes: res.data.matches,
         })
-      }, (err) => {
-        console.log(err);
-        
       })
   }
 
-
   async tripleAxios() {
-    
-    
     await this.wineAxios();
     await this.dandelionAxios();
     await this.yummlyAxios();
- 
-
   }
 
   async componentDidMount() {
@@ -214,22 +195,13 @@ class Recipes extends React.Component {
     const diet = `${this.props.diet}`;
     const allergies = `${this.props.allergies}`;
 
-   
-    console.log("mounted");
-
     this.setState({
       allergies: allergies,
       diet: diet,
       isLoading: false
     })
-
-    
   }
 
-
-
-
-  
   render() {
     return (
       <div>

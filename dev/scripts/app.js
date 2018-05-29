@@ -3,7 +3,6 @@ import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import ReactDOM from 'react-dom';
 import Recipes from './Recipes';
 import SingleRecipe from './SingleRecipe';
-import Text from './Text.js';
 import {
   BrowserRouter as Router,
   Route, Link, NavLink, Switch
@@ -35,21 +34,15 @@ class App extends React.Component {
   }
 
   clearDietAndAllergies(dietToClear, allergyToClear){
-    console.log(dietToClear);
-    console.log(allergyToClear);
-    
-    
     this.setState({
       allergies: allergyToClear,
       diet: dietToClear
     })
-
   }
 
 
     render() {
       //move this to render in app
-      // this.props.clearDietAndAllergies();
       return (
           <div>
             <Router>
