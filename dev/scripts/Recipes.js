@@ -233,7 +233,7 @@ class Recipes extends React.Component {
   render() {
     return (
       <div>
-      {this.state.isLoading === true ? <div className="loading"><img className="spin" src="../images/loading.png" alt="{age loading..." /></div> :
+      {this.state.isLoading === true ? <div className="loading"><img className="spin" src="../images/loading.png" alt="Page loading..." /></div> :
       <div className="clear recipesRenders">
         <section>
           <button className="navButton reWineButton" onClick={this.tripleAxios}>New Wine</button>
