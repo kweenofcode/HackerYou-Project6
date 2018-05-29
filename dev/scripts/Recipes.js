@@ -232,12 +232,9 @@ class Recipes extends React.Component {
     return (
       <div className="clear">
         <section>
-          {/* <Link to={"/"}> */}
           <button className="buttonReturn" onClick={this.clear}>Menu</button>
           <button className="buttonNewWine" onClick={this.tripleAxios}>Crap wine?</button>
-          {/* <Link to={"/"}  */}
-            
-          {/* </Link> */}
+          <button className="navButton buttonReturn" onClick={this.clear}>Menu</button>
         </section>
         <section className="wineRender fl">
           <h2>VQA Wine Spotlight</h2>
