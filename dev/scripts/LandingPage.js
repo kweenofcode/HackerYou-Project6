@@ -62,7 +62,7 @@ class LandingPage extends React.Component {
       this.setState({
         allergies: allergiesClone
       })
-      const allergyItems = [];
+      const allergyItems = [];  
       this.state.allergies.map((allergy) => {
         if (allergy.isChecked) {
           allergyItems.push(allergy.value);
@@ -99,11 +99,12 @@ class LandingPage extends React.Component {
     render() {
     return (
           <section className="landingPage">
-              <div id="flipbook" className="landingContent">
-                <h1>Wine ON, Dine ON</h1>
-                <p className="desc"> </p>
+              <div className="landingContent">
+                <h1>Wine ON <span>Dine ON</span></h1>
+                <p className="desc">Whether it's been a long week or about to be a long weekend, you deserve to unwind. </p>
                 <form action="">
-                  <div>
+                  <div className="clear">
+                    <p>Select dietary-restrictions:</p>
                     {this.state.diet.map((diet, i) => {
                       return (
                         <React.Fragment>
@@ -114,8 +115,8 @@ class LandingPage extends React.Component {
                       } 
                     )}
                   </div>
-
                   <div>
+                    <p>Select allergy-restrictions:</p>
                     {this.state.allergies.map((allergy, i) => {
                       return (
                         <React.Fragment>
@@ -126,8 +127,6 @@ class LandingPage extends React.Component {
                     }
                     )}
                   </div>
-
-
                   <Link to="/recipes">Explore</Link>
                 </form>
               </div>

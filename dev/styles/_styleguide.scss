@@ -8,7 +8,8 @@ $black: #333;
 
 //██████████ BORDERS ██████████
 $basicBorder: solid 2px $primaryD;
-$thiccBorder: 6px solid $primaryL;
+$basicBorderL: solid 1px $primaryL;
+$thiccBorder: 8px solid $primaryL;
 
 //██████████ TYPOGRAPHY ██████████
 @mixin headingCopy { //@include headingCopy;
