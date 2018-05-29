@@ -35,6 +35,7 @@ class Recipes extends React.Component {
     // push to Recipes
     // this.clearDietAndAllergies = this.clearDietAndAllergies.bind(this);
     this.clear = this.clear.bind(this);
+    this.newWine = this.newWine.bind(this);
   }
 
   //push this to Recipes
@@ -49,6 +50,12 @@ class Recipes extends React.Component {
      }
    )
     // console.log(this.state.diet);
+  }
+
+  newWine(){
+    this.setState({
+
+    })
   }
 
   // Get random wine
@@ -201,7 +208,8 @@ class Recipes extends React.Component {
       <div className="clear">
         <section>
           {/* <Link to={"/"}> */}
-            <button className="buttonReturn" onClick={this.clear}>Menu</button>
+          <button className="buttonReturn" onClick={this.clear}>Menu</button>
+          <button className="buttonNewWine" onClick={this.newWine}>Wine sucks?</button>
           {/* </Link> */}
           {/* <Link to={"/"}  */}
             
