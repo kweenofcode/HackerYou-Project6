@@ -70,8 +70,6 @@ class LandingPage extends React.Component {
       })
       const fullAllergies = allergyItems.join(', ');
       this.props.allergyCallback(fullAllergies);
-      console.log(`Allergies: ${fullAllergies}`);
-
     }
 
 
@@ -93,8 +91,6 @@ class LandingPage extends React.Component {
       })
       const fullDiet = dietItems.join(', ');
       this.props.callback(fullDiet);
-      console.log(`Diet: ${fullDiet}`);
-      
     }
     render() {
     return (
@@ -129,7 +125,7 @@ class LandingPage extends React.Component {
                   </div>
                   <Link to="/recipes">Explore</Link>
                 </form>
-                <p>&copy; 2018 Becky Pollard, Michael Yiu and Ky Capstick</p>
+                <p className="credit">&copy; 2018 Becky Pollard, Michael Yiu and Ky Capstick</p>
               </div>
           </section>
         )

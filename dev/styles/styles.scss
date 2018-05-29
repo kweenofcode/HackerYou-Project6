@@ -2,14 +2,38 @@
 @import "styleguide";
 @import "typography";
 @import "formElements";
-//██████████ ANIMATION ██████████
+//██████████ REACT TRANSITION GROUP & ANIMATIONS ██████████
 .fade-enter {
     opacity: 0;
-    z-index: 1;
 }
 .fade-enter.fade-enter-active {
     opacity: 1;
-    transition: opacity 1000ms ease-in;
+    transition: opacity 500ms ease-in;
+    
+}
+.fade-exit {
+    opacity: 1;
+}
+.fade-exit.fade-exit-active {
+    opacity: 0;
+    transition: opacity 500ms ease-in;
+}
+@keyframes spin {
+    from {
+        transform:rotate(0deg);
+    }
+    to {
+        transform:rotate(360deg);
+    }
+}
+.spin {
+    animation: spin 2s infinite;
+}
+.loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
 }
 
 //██████████ GLOBAL ██████████
@@ -31,6 +55,7 @@ body {
     position: absolute;
     top: -35px;
     left: calc(50% - 33px);
+    z-index: 5;
 }
 .navButton {
     background: $white;
@@ -38,7 +63,6 @@ body {
     padding: 5px 10px;
     position: absolute;
     top: -18px;
-    margin-left: 20px;
     &:hover {
         background: $primaryL;
         color: $white;
@@ -51,6 +75,12 @@ body {
         border: solid 1px $secondaryD;
         outline: 0px;
     }
+}
+.reWineButton {
+    right: 20px;
+}
+.menuButton {
+    left: 20px;
 }
 //██████████ LAYOUT DETAILS ██████████
 .landingPage, .recipesRender, .wineRender{
@@ -93,6 +123,11 @@ body {
                     margin-bottom: 5px;
                 }
             }
+        }
+        .credit {
+            text-align: center;
+            margin-top: 50px;
+            font-size: 10px;
         }
     }
 }

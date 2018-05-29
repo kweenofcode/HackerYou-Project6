@@ -3,7 +3,6 @@ import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import ReactDOM from 'react-dom';
 import Recipes from './Recipes';
 import SingleRecipe from './SingleRecipe';
-import Text from './Text.js';
 import {
   BrowserRouter as Router,
   Route, Link, NavLink, Switch
@@ -35,21 +34,15 @@ class App extends React.Component {
   }
 
   clearDietAndAllergies(dietToClear, allergyToClear){
-    console.log(dietToClear);
-    console.log(allergyToClear);
-    
-    
     this.setState({
       allergies: allergyToClear,
       diet: dietToClear
     })
-
   }
 
 
     render() {
       //move this to render in app
-      // this.props.clearDietAndAllergies();
       return (
           <div>
             <Router>
@@ -57,7 +50,7 @@ class App extends React.Component {
                 <a href="http://www.vqaontario.ca/Home"><img src="../images/VQAlogo.png" alt="VQA Wines of Ontario Logo" className="VQAlogo"/></a>
                 <Route render={({location}) => ( 
                 <TransitionGroup>
-                  <CSSTransition classNames="fade" key={location.key} timeout={500}>
+                  <CSSTransition classNames="fade" key={location.key} timeout={1000}>
                     <Switch location={location}>
                       <Route exact path="/" render={(props) => <LandingPage {...props} callback={this.getDiet} allergyCallback= {this.getAllergies} />} />
                       <Route path="/recipe/:recipe_id" component={SingleRecipe} />
