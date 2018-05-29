@@ -12,7 +12,15 @@ class SingleRecipe extends React.Component {
       flavors: {},
       source: {},
     }
+    this.back = this.back.bind(this);
+    
   }
+
+  //push this to Recipes
+  back() {
+    this.props.history.push('/recipes');
+  }
+  
   componentDidMount() {
     axios({
       url: `https://api.yummly.com/v1/api/recipe/${this.props.match.params.recipe_id}`,
@@ -37,32 +45,37 @@ class SingleRecipe extends React.Component {
   }
   render(){
     return (
-      <section className="recipeRender">
-        <h2><a href={this.state.attribution.url}>{this.state.recipe.name}</a></h2>
-        <div class="linkContainerC">
-          <a href={this.state.attribution.url}><img src={this.state.attribution.logo} alt="Recipes provided by Yummly"/></a>
-        </div>
-        <div className="linkContainerC">
-          <a href="#"><img className="recipeImage" src={this.state.image} alt=""/></a>
-        </div>
-        <div className="clear">
-          <div className="fl recipeIngredients">
-            <h3>Ingredients</h3>
-            <ul className="ingredientsList">
-            {this.state.ingredientLines.map((ingredient)  => {
-              return <li>+ {ingredient}</li>
-            })}
-            </ul>
+      <div>
+        <section>
+          <button className="navButton menuButton" onClick={this.back}>Back</button>    
+        </section>
+        <section className="recipeRender">
+          <h2><a href={this.state.attribution.url}>{this.state.recipe.name}</a></h2>
+          <div class="linkContainerC">
+            <a href={this.state.attribution.url}><img src={this.state.attribution.logo} alt="Recipes provided by Yummly"/></a>
           </div>
-          <div class="fr recipeDetails">
-            <h3>Details</h3>
-            <p>+ Total Time: {this.state.recipe.totalTime}  </p>
-            <p>+ Recipe makes {this.state.recipe.yield}</p>
-            <p className="recipeAuthor">+ See full recipe by <a href={this.state.source.sourceRecipeUrl}>{this.state.source.sourceDisplayName}</a></p>
-            
+          <div className="linkContainerC">
+            <a href="#"><img className="recipeImage" src={this.state.image} alt=""/></a>
           </div>
-        </div>
-      </section>
+          <div className="clear">
+            <div className="fl recipeIngredients">
+              <h3>Ingredients</h3>
+              <ul className="ingredientsList">
+              {this.state.ingredientLines.map((ingredient)  => {
+                return <li>+ {ingredient}</li>
+              })}
+              </ul>
+            </div>
+            <div class="fr recipeDetails">
+              <h3>Details</h3>
+              <p>+ Total Time: {this.state.recipe.totalTime}  </p>
+              <p>+ Recipe makes {this.state.recipe.yield}</p>
+              <p className="recipeAuthor">+ See full recipe by <a href={this.state.source.sourceRecipeUrl}>{this.state.source.sourceDisplayName}</a></p>
+              
+            </div>
+          </div>
+        </section>
+      </div>
     )
   }
 }
